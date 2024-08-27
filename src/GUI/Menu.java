@@ -4,7 +4,7 @@ import Implementacion.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import logica.musica;
+import logica.*;
 
 /**
  * Clase encargada de la creacion del panel del menu principal En este panel
@@ -15,6 +15,7 @@ public class Menu extends JPanel {
 
     public Menu() {
         setLayout(null);
+        setSize(App.ancho,App.alto);
         setBackground(Color.BLACK);
 
         //Llamando al metodo 'crearEtiquetas' para las diferentes opciones del juego
@@ -26,6 +27,11 @@ public class Menu extends JPanel {
         crearEtiquetas(SalirJuego, 170, 350, 150, 30, false, 20);
         crearEtiquetas(flecha, 130, 150, 30, 30, true, 20);
         flecha.setFocusable(true);
+    }
+    
+    //Metodo para mantener el focus cuando se cambie de panel
+    public void requestFocus(){
+        flecha.requestFocusInWindow();
     }
 
     /**
@@ -85,15 +91,10 @@ public class Menu extends JPanel {
         }
 
         private void cambiarPanel(JPanel panel) {
-            ventana = new JFrame();
-            ventana.setSize(App.ancho, App.alto);
-            ventana.setLocationRelativeTo(null);
-            ventana.add(panel);
-            ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            ventana.setResizable(false);
-            ventana.setTitle("Space Invader");
-            ventana.setVisible(true);
-            App.ventana.setVisible(false);
+            App.panel.removeAll();
+            App.panel.add(panel,BorderLayout.CENTER);
+            App.panel.revalidate();
+            App.panel.repaint();
         }
 
         private int x;
@@ -107,5 +108,4 @@ public class Menu extends JPanel {
     private JLabel Creditos = new JLabel("Creditos", SwingConstants.CENTER);
     private JLabel SalirJuego = new JLabel("Salir Del Juego", SwingConstants.CENTER);
     private JLabel flecha = new JLabel();
-    public static JFrame ventana;
 }
