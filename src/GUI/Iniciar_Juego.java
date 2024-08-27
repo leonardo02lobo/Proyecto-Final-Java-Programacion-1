@@ -13,9 +13,9 @@ public class Iniciar_Juego extends JPanel {
         setBackground(Color.BLACK);
 
         crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 40,false,"");
-        crearEtiquetas(etiquetaNombre, 100, 100, 200, 30, 20,false,"");
-        Cajas(nombre, 120, 150, 200, 30);
-//        crearEtiquetas(imagenBlancoNegro, 70, 250, 100, 100, 0,false,"../source/enemigos/Calamar2.png");
+        crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 20,false,"");
+        Cajas(nombre, 100, 180, 300, 30);
+        crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20,true,"../source/enemigos/Calamar 2.png");
         crearEtiquetas(imagenColor, 300, 250, 100, 100, 20,true,"../source/Sprites Color/enemy1_1.png");
         CrearBoton(iniciarJuego, 120, 420, 100, 30, "Iniciar");
         CrearBoton(volver, 270, 420, 100, 30, "volver");
@@ -25,17 +25,33 @@ public class Iniciar_Juego extends JPanel {
         if(band){
             Image imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
             label.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
-            label.setBorder(BorderFactory.createLineBorder(Color.white, 2));
+            label.setBorder(BorderFactory.createLineBorder(Color.blue, 1));
         }
         label.setFont(new Font("calibri", Font.BOLD, tam));
         label.setBounds(x, y, ancho, alto);
         label.setForeground(Color.white);
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getSource().equals(imagenBlancoNegro)){
+                    imagenBlancoNegro.setBorder(BorderFactory.createLineBorder(Color.white, 3));
+                    imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 0));
+                }else if(e.getSource().equals(imagenColor)){
+                    imagenBlancoNegro.setBorder(BorderFactory.createLineBorder(Color.white, 0));
+                    imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 3));
+                }
+                new musica("src/source/music/clic.wav").reproducirClic();
+            }
+        });
         add(label);
     }
 
     private void Cajas(JTextField caja, int x, int y, int ancho, int alto) {
-        caja.setFont(new Font("calibri", Font.PLAIN, 20));
+        caja.setFont(new Font("calibri", Font.PLAIN, 25));
         caja.setBounds(x, y, ancho, alto);
+        caja.setBackground(Color.BLACK);
+        caja.setForeground(Color.white);
+        caja.setOpaque(false);
         add(caja);
     }
 
