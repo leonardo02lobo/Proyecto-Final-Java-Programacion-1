@@ -44,11 +44,14 @@ public class Iniciar_Juego extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new musica("src/source/music/clic.wav").reproducirClic();
-                if(e.getSource().equals(iniciarJuego)){
-                    
-                }else{
-                    Menu.ventana.dispose();
-                    App.ventana.setVisible(true);
+                if (e.getSource().equals(iniciarJuego)) {
+
+                } else {
+                    App.panel.removeAll();
+                    App.panel.add(App.menu, BorderLayout.CENTER);
+                    App.panel.revalidate();
+                    App.panel.repaint();
+                    App.menu.requestFocus();
                 }
             }
         }

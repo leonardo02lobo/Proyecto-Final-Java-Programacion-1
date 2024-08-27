@@ -1,6 +1,7 @@
 package Implementacion;
 
 import GUI.*;
+import java.awt.BorderLayout;
 import javax.swing.*;
 import logica.musica;
 
@@ -14,6 +15,8 @@ public class App {
     public static JFrame ventana = new JFrame();
     public static int ancho = 500;
     public static int alto = 500;
+    public static JPanel panel = new JPanel();
+    public static Menu menu = new Menu();
 
     public static void main(String[] args) {
         /**
@@ -21,7 +24,9 @@ public class App {
          */
         ventana.setSize(ancho, alto);
         ventana.setLocationRelativeTo(null);
-        ventana.add(new Menu());
+        panel.setLayout(new BorderLayout());
+        panel.add(menu,BorderLayout.CENTER);
+        ventana.add(panel);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setResizable(false);
         ventana.setTitle("Space Invader");
