@@ -1,7 +1,7 @@
 package Juego.personaje;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class nave extends JLabel {
@@ -12,8 +12,9 @@ public class nave extends JLabel {
     private int y = 450;
     private final int movimiento = 10;
     private Image imagenNave = new ImageIcon(getClass().getResource("../../source/personaje/Disparador.png")).getImage();
-    
+
     public nave() {
+        setBorder(BorderFactory.createLineBorder(Color.white));
         setIcon(new ImageIcon(imagenNave.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         setBounds(x, y, ancho, alto);
     }
@@ -27,12 +28,11 @@ public class nave extends JLabel {
             if (x != 0) {
                 x -= movimiento;
             }
-        }else if(e.getKeyCode() == KeyEvent.VK_SPACE){
         }
         setLocation(x, y);
     }
-    
-    public Rectangle getRectangle(){
+
+    public Rectangle getRectangle() {
         return this.getBounds();
     }
 }

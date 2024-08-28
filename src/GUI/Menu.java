@@ -15,7 +15,7 @@ public class Menu extends JPanel {
 
     public Menu() {
         setLayout(null);
-        setSize(App.ancho,App.alto);
+        setSize(App.ancho, App.alto);
         setBackground(Color.BLACK);
 
         //Llamando al metodo 'crearEtiquetas' para las diferentes opciones del juego
@@ -28,9 +28,9 @@ public class Menu extends JPanel {
         crearEtiquetas(flecha, 130, 150, 30, 30, true, 20);
         flecha.setFocusable(true);
     }
-    
+
     //Metodo para mantener el focus cuando se cambie de panel
-    public void requestFocus(){
+    public void requestFocus() {
         flecha.requestFocusInWindow();
     }
 
@@ -50,6 +50,10 @@ public class Menu extends JPanel {
         add(label);
     }
 
+    /**
+     * clase interna que se encarga del movimiento de las flechas y del cambio
+     * de paneles para trabajar en el mismo Frame con respecto al menu
+     */
     private class Evento_Flecha extends KeyAdapter {
 
         public Evento_Flecha(int x, int y) {
@@ -90,9 +94,12 @@ public class Menu extends JPanel {
             new musica("src/source/music/clic.wav").reproducirClic();
         }
 
+        /**
+         * metodo encargado del cambio de paneles
+         */
         private void cambiarPanel(JPanel panel) {
             App.panel.removeAll();
-            App.panel.add(panel,BorderLayout.CENTER);
+            App.panel.add(panel, BorderLayout.CENTER);
             App.panel.revalidate();
             App.panel.repaint();
         }
@@ -101,6 +108,9 @@ public class Menu extends JPanel {
         private int y;
     }
 
+    /**
+     * variables usada en esta clase
+     */
     private JLabel titulo = new JLabel(" Space Invader", SwingConstants.CENTER);
     private JLabel iniciarPartida = new JLabel("Iniciar Juego", SwingConstants.CENTER);
     private JLabel GuardarPartida = new JLabel("Guardar Partida", SwingConstants.CENTER);
