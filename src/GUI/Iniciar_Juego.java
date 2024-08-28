@@ -69,18 +69,20 @@ public class Iniciar_Juego extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 new musica("src/source/music/clic.wav").reproducirClic();
                 if (e.getSource().equals(iniciarJuego)) {
-                    cambiarPanel(new Game());
+                    JFrame frame = new JFrame("Space Invader");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setSize(600, 600);
+                    frame.setLocationRelativeTo(null);
+                    frame.add(new Game());
+                    frame.setVisible(true);
+                    App.ventana.dispose();
                 } else {
-                    cambiarPanel(App.panel);
+                    App.panel.removeAll();
+                    App.panel.add(App.panel, BorderLayout.CENTER);
+                    App.panel.revalidate();
+                    App.panel.repaint();
+                    App.menu.requestFocus();
                 }
-            }
-
-            private void cambiarPanel(JPanel panel) {
-                App.panel.removeAll();
-                App.panel.add(panel, BorderLayout.CENTER);
-                App.panel.revalidate();
-                App.panel.repaint();
-                App.menu.requestFocus();
             }
         }
         boton.addActionListener(new Accion());
