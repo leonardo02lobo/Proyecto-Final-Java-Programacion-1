@@ -1,6 +1,7 @@
 package GUI;
 
 import Implementacion.*;
+import Juego.Game;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,17 +13,17 @@ public class Iniciar_Juego extends JPanel {
         setLayout(null);
         setBackground(Color.BLACK);
 
-        crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 40,false,"");
-        crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 20,false,"");
+        crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 40, false, "");
+        crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 20, false, "");
+        crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20, true, "../source/enemigos/Calamar 2.png");
+        crearEtiquetas(imagenColor, 300, 250, 100, 100, 20, true, "../source/Sprites Color/enemy1_1.png");
         Cajas(nombre, 100, 180, 300, 30);
-        crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20,true,"../source/enemigos/Calamar 2.png");
-        crearEtiquetas(imagenColor, 300, 250, 100, 100, 20,true,"../source/Sprites Color/enemy1_1.png");
         CrearBoton(iniciarJuego, 120, 420, 100, 30, "Iniciar");
         CrearBoton(volver, 270, 420, 100, 30, "volver");
     }
 
-    private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam,boolean band,String ruta) {
-        if(band){
+    private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam, boolean band, String ruta) {
+        if (band) {
             Image imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
             label.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
             label.setBorder(BorderFactory.createLineBorder(Color.blue, 1));
@@ -33,10 +34,10 @@ public class Iniciar_Juego extends JPanel {
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getSource().equals(imagenBlancoNegro)){
+                if (e.getSource().equals(imagenBlancoNegro)) {
                     imagenBlancoNegro.setBorder(BorderFactory.createLineBorder(Color.white, 3));
                     imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 0));
-                }else if(e.getSource().equals(imagenColor)){
+                } else if (e.getSource().equals(imagenColor)) {
                     imagenBlancoNegro.setBorder(BorderFactory.createLineBorder(Color.white, 0));
                     imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 3));
                 }
@@ -68,14 +69,18 @@ public class Iniciar_Juego extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 new musica("src/source/music/clic.wav").reproducirClic();
                 if (e.getSource().equals(iniciarJuego)) {
-
+                    cambiarPanel(new Game());
                 } else {
-                    App.panel.removeAll();
-                    App.panel.add(App.menu, BorderLayout.CENTER);
-                    App.panel.revalidate();
-                    App.panel.repaint();
-                    App.menu.requestFocus();
+                    cambiarPanel(App.panel);
                 }
+            }
+
+            private void cambiarPanel(JPanel panel) {
+                App.panel.removeAll();
+                App.panel.add(panel, BorderLayout.CENTER);
+                App.panel.revalidate();
+                App.panel.repaint();
+                App.menu.requestFocus();
             }
         }
         boton.addActionListener(new Accion());
