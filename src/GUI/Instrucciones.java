@@ -37,7 +37,7 @@ public class Instrucciones extends JPanel {
                 
                 "\nGame Over: \n" +
                 "\nLos alienígenas llegan abajo o pierdes todas tus vidas.\n" +
-                "\n");
+                "\n ");
         textArea.setFont(new Font("arial",0,14));
         textArea.setBounds(18, 60, 450, 320);
         textArea.setBackground(Color.BLACK);
