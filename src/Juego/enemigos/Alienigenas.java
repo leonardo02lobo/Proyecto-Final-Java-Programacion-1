@@ -1,5 +1,6 @@
 package Juego.enemigos;
 
+import java.awt.Rectangle;
 import javax.swing.*;
 
 public abstract class Alienigenas extends JLabel{
@@ -13,5 +14,8 @@ public abstract class Alienigenas extends JLabel{
     public Alienigenas(int x,int y){
         this.x = x;
         this.y = y;
+    }
+    public Rectangle getRectangle() {
+        return this.getBounds();
     }
 }
