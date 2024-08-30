@@ -13,7 +13,7 @@ public class Creditos extends JPanel {
         setBackground(Color.BLACK);
         
         JLabel Creditos = new JLabel("Creditos");
-        Creditos.setFont(new Font("calibri", 1, 40));
+        Creditos.setFont(new Font("monospace", 1, 40));
         Creditos.setBounds(170, 5, 400, 50);
         Creditos.setForeground(Color.YELLOW);
         add(Creditos);
