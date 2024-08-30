@@ -32,7 +32,7 @@ public class Creditos extends JPanel {
                 + " y ha inspirado a muchos otros juegos de naves espaciales.\n\n"
                 + "Creadores del proyecto de programacion 1:\n"
                 + "\n    Leonardo lobo, CI 31.489.733"
-                + "\n    Moises Becerra, CI 30.965.748");
+                + "\n    Moises Becerra, CI 30.965.748 ");
         
         textArea.setFont(new Font("arial",0,14));
         textArea.setBounds(18, 60, 460, 350);
