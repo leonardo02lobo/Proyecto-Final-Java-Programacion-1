@@ -1,6 +1,9 @@
 package Juego;
 
+import Juego.enemigos.Alienigenas;
 import Juego.enemigos.Calamar;
+import Juego.enemigos.Cangrejo;
+import Juego.enemigos.Pulpo;
 import Juego.personaje.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +17,12 @@ import javax.swing.*;
 public class Game extends JPanel {
 
     private nave minave = new nave();
-    Calamar calamar = new Calamar(200, 200);
+    Alienigenas enemigos[] = {
+        new Calamar(200, 200),
+        new Cangrejo(300, 200),
+        new Pulpo(400, 200)
+    };
+    boolean band[] = {false,false,false};
 
     public Game() {
         setLayout(null);
@@ -37,7 +45,9 @@ public class Game extends JPanel {
             }
         });
         add(minave);
-        add(calamar);
+        for (Alienigenas enemigo : enemigos) {
+            add(enemigo);
+        }
         setFocusable(true);
 
         /**
@@ -71,10 +81,16 @@ public class Game extends JPanel {
                 } else {
                     remove(disparo);
                 }
-                if(calamar.getRectangle().intersects(disparo.getRectangle())){
-                    remove(disparo);
-                    remove(calamar);
+                int i = 0;
+                for (Alienigenas enemigo : enemigos) {
+                    if (enemigo.getRectangle().intersects(disparo.getRectangle()) && !band[i]) {
+                        remove(disparo);
+                        remove(enemigo);
+                        band[i] = true;
+                    }
+                    i++;
                 }
+
             }
         });
         t.start();

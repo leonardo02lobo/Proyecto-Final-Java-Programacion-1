@@ -78,7 +78,7 @@ public class Iniciar_Juego extends JPanel {
                     App.ventana.dispose();
                 } else {
                     App.panel.removeAll();
-                    App.panel.add(App.panel, BorderLayout.CENTER);
+                    App.panel.add(App.menu, BorderLayout.CENTER);
                     App.panel.revalidate();
                     App.panel.repaint();
                     App.menu.requestFocus();

@@ -38,6 +38,8 @@ public class Creditos extends JPanel {
         textArea.setBounds(18, 60, 460, 350);
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.WHITE);
+        textArea.setCursor(new Cursor(Cursor.DEFAULT_CURSOR) {
+        });
         add(textArea);
 
         JButton boton = new JButton("atras");

@@ -30,6 +30,7 @@ public class Calamar extends Alienigenas {
         setBounds(x, y, ancho, alto);
     }
 
+    @Override
     public Rectangle getRectangle() {
         return this.getBounds();
     }
