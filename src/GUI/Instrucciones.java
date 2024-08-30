@@ -14,8 +14,8 @@ public class Instrucciones extends JPanel {
         
        
         JLabel textoBienvenida = new JLabel("Instrucciones");
-        textoBienvenida.setFont(new Font("cooper black", 3, 30));
-        textoBienvenida.setBounds(125, 5, 400, 40);
+        textoBienvenida.setFont(new Font("calibri", 1, 40));
+        textoBienvenida.setBounds(135, 5, 400, 50);
         textoBienvenida.setForeground(Color.YELLOW);
         add(textoBienvenida);
         
