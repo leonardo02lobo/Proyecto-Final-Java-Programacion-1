@@ -20,7 +20,7 @@ public class Creditos extends JPanel {
         
         JTextArea textArea = new JTextArea(); // 10 filas, 20 columnas
         textArea.setText("Creador: Tomohiro Nishikado.\n"
-                + "Desarrollador: Taito Corporation y se lanzoen 1978. \nGénero: Shooter, Arcade.\n" 
+                + "Desarrollador: Taito Corporation y se lanzo en 1978. \nGénero: Shooter, Arcade.\n" 
                 + "\n" 
                 + "Historia: \n\n"
                 + "   Space Invaders es un juego de naves espaciales que fue un éxito\n instantáneo"
