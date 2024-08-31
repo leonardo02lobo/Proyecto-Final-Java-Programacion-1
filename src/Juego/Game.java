@@ -3,6 +3,7 @@ package Juego;
 import Juego.enemigos.Alienigenas;
 import Juego.enemigos.Calamar;
 import Juego.enemigos.Cangrejo;
+import Juego.enemigos.NaveNodriza;
 import Juego.enemigos.Pulpo;
 import Juego.personaje.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ import javax.swing.*;
 public class Game extends JPanel {
 
     private nave minave = new nave();
+    private NaveNodriza naveNodriza = new NaveNodriza(20, 20);
     Alienigenas enemigos[] = {
         new Calamar(200, 200),
         new Cangrejo(300, 200),
@@ -44,6 +46,7 @@ public class Game extends JPanel {
                 repaint();
             }
         });
+        add(naveNodriza);
         add(minave);
         for (Alienigenas enemigo : enemigos) {
             add(enemigo);
