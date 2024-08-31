@@ -15,11 +15,7 @@ public abstract class Alienigenas extends JLabel {
         this.x = x;
         this.y = y;
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 6aac1d0487a1b92893545e137558fcfa7070e673
     public Rectangle getRectangle() {
         return this.getBounds();
     }

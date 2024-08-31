@@ -1,14 +1,6 @@
 package Juego;
 
-<<<<<<< HEAD
-import Juego.enemigos.Alienigenas;
-import Juego.enemigos.Calamar;
-import Juego.enemigos.Cangrejo;
-import Juego.enemigos.NaveNodriza;
-import Juego.enemigos.Pulpo;
-=======
 import Juego.enemigos.*;
->>>>>>> 6aac1d0487a1b92893545e137558fcfa7070e673
 import Juego.personaje.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -22,15 +14,8 @@ import javax.swing.*;
 public class Game extends JPanel {
 
     private nave minave = new nave();
-<<<<<<< HEAD
+
     private NaveNodriza naveNodriza = new NaveNodriza(20, 20);
-    Alienigenas enemigos[] = {
-        new Calamar(200, 200),
-        new Cangrejo(300, 200),
-        new Pulpo(400, 200)
-    };
-    boolean band[] = {false,false,false};
-=======
 
     private Alienigenas enemigos[][] = {
         {new Calamar(45, 100), new Calamar(90, 100), new Calamar(135, 100), new Calamar(180, 100), new Calamar(225, 100), new Calamar(270, 100), new Calamar(315, 100), new Calamar(360, 100), new Calamar(405, 100), new Calamar(450, 100), new Calamar(495, 100)},
@@ -48,7 +33,7 @@ public class Game extends JPanel {
     private Timer t = null;
     private Disparo_Personaje disparo = null;
     private boolean bandera = true;
->>>>>>> 6aac1d0487a1b92893545e137558fcfa7070e673
+
 
     public Game() {
         setLayout(null);
