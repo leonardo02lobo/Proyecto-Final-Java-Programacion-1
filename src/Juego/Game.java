@@ -30,12 +30,12 @@ public class Game extends JPanel {
         {false, false, false, false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false, false, false, false},};
+
     private Timer t = null;
     private Disparo_Personaje disparo = null;
     private boolean bandera = true;
 
-
-    public Game() {
+    public Game(byte tipoJuego) {
         setLayout(null);
         setBackground(Color.BLACK);
         /**
@@ -64,6 +64,7 @@ public class Game extends JPanel {
          */
         for (int i = 0; i < enemigos.length; i++) {
             for (int j = 0; j < enemigos[i].length; j++) {
+                enemigos[i][j].AnimacionYSkin(tipoJuego);
                 add(enemigos[i][j]);
             }
         }
@@ -102,6 +103,7 @@ public class Game extends JPanel {
              */
             if (t != null) {
                 t.stop();
+                t = null;
             }
             //comienza un nuevo Timer
             t = new Timer(20, new ActionListener() {
@@ -114,6 +116,8 @@ public class Game extends JPanel {
                         } else {
                             remove(disparo);
                             disparo = null;
+                            t.stop();
+                            t = null;
                         }
                         /**
                          * Se crea una etiqueta para determinar si el usuario le
@@ -133,6 +137,7 @@ public class Game extends JPanel {
                                     remove(enemigos[i][j]);
                                     band[i][j] = true;
                                     t.stop();
+                                    t = null;
                                     disparo = null;
                                     break enemigo;
                                 }

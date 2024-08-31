@@ -14,6 +14,8 @@ public class NaveNodriza extends Alienigenas {
     public NaveNodriza(int x, int y) {
 
         super(x, y);
+        ancho = 50;
+        alto = 30;
         Image ImagenNave = new ImageIcon(getClass().getResource("../../source/enemigos/Platillo volador.png")).getImage();
         setIcon(new ImageIcon(ImagenNave.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         setBounds(x, y, ancho, alto);
@@ -28,5 +30,9 @@ public class NaveNodriza extends Alienigenas {
     public void update() {
         movimientoX+=movimiento;
         setLocation(movimientoX, movimientoY);
+    }
+
+    @Override
+    public void AnimacionYSkin(byte tipo) {
     }
 }

@@ -9,29 +9,42 @@ import javax.swing.Timer;
 
 public class Pulpo extends Alienigenas {
 
-    private Image imagenPulpo[] = {
+    private Image imagenPulpoBlanco[] = {
         new ImageIcon(getClass().getResource("../../source/enemigos/Pulpo 1.png")).getImage(),
         new ImageIcon(getClass().getResource("../../source/enemigos/Pulpo 2.png")).getImage(),};
+    private Image imagenPulpoColor[] = {
+        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy3_1.png")).getImage(),
+        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy3_2.png")).getImage(),};
     private int i = 0;
+    private Image imagen[] = null;
 
     public Pulpo(int x, int y) {
         super(x, y);
-        Timer Animacionulpo = new Timer(200, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setIcon(new ImageIcon(imagenPulpo[i].getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
-                i++;
-                if (i >= imagenPulpo.length) {
-                    i = 0;
-                }
-            }
-        });
-        Animacionulpo.start();
         setBounds(x, y, ancho, alto);
     }
 
     @Override
     public Rectangle getRectangle() {
         return this.getBounds();
+    }
+
+    @Override
+    public void AnimacionYSkin(byte tipo) {
+        if(tipo == 0){
+            imagen = imagenPulpoBlanco;
+        }else{
+            imagen = imagenPulpoColor;
+        }
+        Timer Animacionulpo = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setIcon(new ImageIcon(imagen[i].getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
+                i++;
+                if (i >= imagen.length) {
+                    i = 0;
+                }
+            }
+        });
+        Animacionulpo.start();
     }
 }

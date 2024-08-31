@@ -6,15 +6,14 @@ import javax.swing.*;
 
 public class nave extends JLabel {
 
-    private int ancho = 50;
-    private int alto = 50;
+    private int ancho = 70;
+    private int alto = 30;
     private int x = 250;
-    private int y = 450;
+    private int y = 650;
     private final int movimiento = 10;
     private Image imagenNave = new ImageIcon(getClass().getResource("../../source/personaje/Disparador.png")).getImage();
 
     public nave() {
-        setBorder(BorderFactory.createLineBorder(Color.white));
         setIcon(new ImageIcon(imagenNave.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         setBounds(x, y, ancho, alto);
     }
