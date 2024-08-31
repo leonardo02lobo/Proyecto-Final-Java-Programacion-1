@@ -8,29 +8,42 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Cangrejo extends Alienigenas {
-    private Image imagenCangrejo[] = {
+    private Image imagenCangrejoBlanco[] = {
         new ImageIcon(getClass().getResource("../../source/enemigos/Cangrejo 1.png")).getImage(),
         new ImageIcon(getClass().getResource("../../source/enemigos/Cangrejo 2.png")).getImage(),};
+    private Image imagenCangrejoColor[] = {
+        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy2_1.png")).getImage(),
+        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy2_1.png")).getImage(),};
     private int i = 0;
+    private Image imagen[] = null;
 
     public Cangrejo(int x, int y) {
         super(x, y);
-        Timer AnimacionCangrejo = new Timer(200, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setIcon(new ImageIcon(imagenCangrejo[i].getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
-                i++;
-                if (i >= imagenCangrejo.length) {
-                    i = 0;
-                }
-            }
-        });
-        AnimacionCangrejo.start();
         setBounds(x, y, ancho, alto);
     }
 
     @Override
     public Rectangle getRectangle() {
         return this.getBounds();
+    }
+
+    @Override
+    public void AnimacionYSkin(byte tipo) {
+        if(tipo == 0){
+            imagen = imagenCangrejoBlanco;
+        }else{
+            imagen = imagenCangrejoColor;
+        }
+        Timer AnimacionCangrejo = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setIcon(new ImageIcon(imagen[i].getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
+                i++;
+                if (i >= imagen.length) {
+                    i = 0;
+                }
+            }
+        });
+        AnimacionCangrejo.start();
     }
 }

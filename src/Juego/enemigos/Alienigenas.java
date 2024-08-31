@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public abstract class Alienigenas extends JLabel {
 
-    protected final int ancho = 30;
-    protected final int alto = 30;
+    protected int ancho = 25;
+    protected int alto = 25;
     private int x;
     private int y;
     protected final int movimiento = 10;
@@ -19,16 +19,21 @@ public abstract class Alienigenas extends JLabel {
     public Rectangle getRectangle() {
         return this.getBounds();
     }
-    public void moverX(){
+
+    public void moverX() {
         x += movimiento;
         setLocation(x, y);
     }
-    public void moverY(){
+
+    public void moverY() {
         y += 30;
         setLocation(x, y);
     }
-    public void moverXNegativo(){
+
+    public void moverXNegativo() {
         x -= movimiento;
         setLocation(x, y);
     }
+    
+    public abstract void AnimacionYSkin(byte tipo);
 }

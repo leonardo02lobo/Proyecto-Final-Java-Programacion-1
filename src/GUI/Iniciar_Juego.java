@@ -37,9 +37,11 @@ public class Iniciar_Juego extends JPanel {
                 if (e.getSource().equals(imagenBlancoNegro)) {
                     imagenBlancoNegro.setBorder(BorderFactory.createLineBorder(Color.white, 3));
                     imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 0));
+                    tipoJuego = 0;
                 } else if (e.getSource().equals(imagenColor)) {
                     imagenBlancoNegro.setBorder(BorderFactory.createLineBorder(Color.white, 0));
                     imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 3));
+                    tipoJuego = 1;
                 }
                 new musica("src/source/music/clic.wav").reproducirClic();
             }
@@ -68,12 +70,13 @@ public class Iniciar_Juego extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new musica("src/source/music/clic.wav").reproducirClic();
+                if(!(nombre.getText().equals("") && (tipoJuego != 0 || tipoJuego != 1))){
                 if (e.getSource().equals(iniciarJuego)) {
                     JFrame frame = new JFrame("Space Invader");
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(600, 600);
+                    frame.setSize(600, 750);
                     frame.setLocationRelativeTo(null);
-                    frame.add(new Game());
+                    frame.add(new Game(tipoJuego));
                     frame.setVisible(true);
                     App.ventana.dispose();
                 } else {
@@ -82,6 +85,9 @@ public class Iniciar_Juego extends JPanel {
                     App.panel.revalidate();
                     App.panel.repaint();
                     App.menu.requestFocus();
+                }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ingresa el nombre y un tipo de enemigo para continuar");
                 }
             }
         }
@@ -95,4 +101,5 @@ public class Iniciar_Juego extends JPanel {
     private JTextField nombre = new JTextField();
     private JButton iniciarJuego = new JButton();
     private JButton volver = new JButton();
+    private byte tipoJuego;
 }
