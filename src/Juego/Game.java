@@ -56,7 +56,7 @@ public class Game extends JPanel {
                 repaint();
             }
         });
-        add(naveNodriza);
+        //add(naveNodriza);
         add(minave);
         MoverEnemigos();
         /**
