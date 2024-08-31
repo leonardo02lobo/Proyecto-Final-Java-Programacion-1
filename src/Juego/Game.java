@@ -14,6 +14,7 @@ import javax.swing.*;
 public class Game extends JPanel {
 
     private nave minave = new nave();
+    private JPanel panel = new JPanel();
 
     private NaveNodriza naveNodriza = new NaveNodriza(20, 20);
 
@@ -38,6 +39,12 @@ public class Game extends JPanel {
     public Game(byte tipoJuego) {
         setLayout(null);
         setBackground(Color.BLACK);
+        setLayout(new BorderLayout());
+        panel.setLayout(null);
+        panel.setBackground(Color.BLACK);
+        add(new Vista_Superior(),BorderLayout.NORTH);
+        add(panel,BorderLayout.CENTER);
+        add(new Vista_Inferior(),BorderLayout.SOUTH);
         /**
          * en esta parte llamamos a un evento de teclado y hacemos uso de una
          * clase anonima para poder llamar al metodo KeyPressed que se encarga
@@ -52,20 +59,19 @@ public class Game extends JPanel {
                     crearDisparo();
                 }
                 MoverEnemigos();
-                revalidate();
-                repaint();
+                panel.revalidate();
+                panel.repaint();
             }
         });
         //add(naveNodriza);
-        add(minave);
-        MoverEnemigos();
+        panel.add(minave);
         /**
          * Agrega la matriz de los enemigos al panel
          */
         for (int i = 0; i < enemigos.length; i++) {
             for (int j = 0; j < enemigos[i].length; j++) {
                 enemigos[i][j].AnimacionYSkin(tipoJuego);
-                add(enemigos[i][j]);
+                panel.add(enemigos[i][j]);
             }
         }
         setFocusable(true);
@@ -77,8 +83,8 @@ public class Game extends JPanel {
         Timer hilo = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                revalidate();
-                repaint();
+                panel.revalidate();
+                panel.repaint();
             }
         });
         hilo.start();
@@ -97,7 +103,7 @@ public class Game extends JPanel {
             //crea un disparo y lo posiciona y lo añade al panel
             int x = minave.getRectangle().x + (minave.getRectangle().width / 2);
             disparo = new Disparo_Personaje(x, minave.getRectangle().y - 50);
-            add(disparo);
+            panel.add(disparo);
             /**
              * pregunta si el timer existente esta activo todavia
              */
@@ -133,8 +139,8 @@ public class Game extends JPanel {
                         for (int i = 0; i < enemigos.length; i++) {
                             for (int j = 0; j < enemigos[i].length; j++) {
                                 if (disparo != null && enemigos[i][j].getRectangle().intersects(disparo.getRectangle()) && !band[i][j]) {
-                                    remove(disparo);
-                                    remove(enemigos[i][j]);
+                                    panel.remove(disparo);
+                                    panel.remove(enemigos[i][j]);
                                     band[i][j] = true;
                                     t.stop();
                                     t = null;
