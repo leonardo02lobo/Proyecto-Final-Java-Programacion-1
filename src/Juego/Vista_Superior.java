@@ -1,5 +1,7 @@
 package Juego;
 
-public class Vista_Superior {
+import javax.swing.JPanel;
+
+public class Vista_Superior extends JPanel{
     
 }
