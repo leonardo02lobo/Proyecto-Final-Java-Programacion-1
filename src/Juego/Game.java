@@ -37,7 +37,6 @@ public class Game extends JPanel {
     private boolean bandera = true;
 
     public Game(byte tipoJuego) {
-        setLayout(null);
         setBackground(Color.BLACK);
         setLayout(new BorderLayout());
         panel.setLayout(null);
@@ -65,6 +64,7 @@ public class Game extends JPanel {
         });
         //add(naveNodriza);
         panel.add(minave);
+        MoverEnemigos();
         /**
          * Agrega la matriz de los enemigos al panel
          */
