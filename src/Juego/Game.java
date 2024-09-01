@@ -5,6 +5,7 @@ import Juego.personaje.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import logica.musica;
 
 /**
  * Esta clase se encarga del panel y de todo el hilo del juego en esta clase se
@@ -15,9 +16,9 @@ public class Game extends JPanel {
 
     private nave minave = new nave();
     private JPanel panel = new JPanel();
-
+    private Vista_Inferior vista_inferior = new Vista_Inferior();
+    private Vista_Superior vista_superior = new Vista_Superior();
     private NaveNodriza naveNodriza = new NaveNodriza(20, 20);
-
     private Alienigenas enemigos[][] = {
         {new Calamar(45, 100), new Calamar(90, 100), new Calamar(135, 100), new Calamar(180, 100), new Calamar(225, 100), new Calamar(270, 100), new Calamar(315, 100), new Calamar(360, 100), new Calamar(405, 100), new Calamar(450, 100), new Calamar(495, 100)},
         {new Cangrejo(45, 145), new Cangrejo(90, 145), new Cangrejo(135, 145), new Cangrejo(180, 145), new Cangrejo(225, 145), new Cangrejo(270, 145), new Cangrejo(315, 145), new Cangrejo(360, 145), new Cangrejo(405, 145), new Cangrejo(450, 145), new Cangrejo(495, 145)},
@@ -35,20 +36,23 @@ public class Game extends JPanel {
     private Timer t = null;
     private Disparo_Personaje disparo = null;
     private boolean bandera = true;
+    private Timer hilo = null;
+    private Timer hiloMovimiento = null;
 
     public Game(byte tipoJuego) {
         setBackground(Color.BLACK);
         setLayout(new BorderLayout());
         panel.setLayout(null);
         panel.setBackground(Color.BLACK);
-        add(new Vista_Superior(),BorderLayout.NORTH);
-        add(panel,BorderLayout.CENTER);
-        add(new Vista_Inferior(),BorderLayout.SOUTH);
+        add(vista_superior, BorderLayout.NORTH);
+        add(panel, BorderLayout.CENTER);
+        add(vista_inferior, BorderLayout.SOUTH);
         /**
          * en esta parte llamamos a un evento de teclado y hacemos uso de una
          * clase anonima para poder llamar al metodo KeyPressed que se encarga
          * de mover la nave y crear los objetos de disparo de la nave
          */
+        MoverEnemigos();
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -57,14 +61,11 @@ public class Game extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     crearDisparo();
                 }
-                MoverEnemigos();
-                panel.revalidate();
-                panel.repaint();
             }
         });
-        //add(naveNodriza);
+        panel.add(naveNodriza);
         panel.add(minave);
-        MoverEnemigos();
+
         /**
          * Agrega la matriz de los enemigos al panel
          */
@@ -80,9 +81,10 @@ public class Game extends JPanel {
          * esta Timer se encarga de revalidar y repintar el panel para tener una
          * vista refresacada del juego
          */
-        Timer hilo = new Timer(15, new ActionListener() {
+        hilo = new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                naveNodriza.update();
                 panel.revalidate();
                 panel.repaint();
             }
@@ -100,6 +102,8 @@ public class Game extends JPanel {
          * Pregunta si el disparo no se a eliminado
          */
         if (disparo == null) {
+            //crea la musica
+            new musica("src/source/music/disparo.wav").reproducirClic();
             //crea un disparo y lo posiciona y lo añade al panel
             int x = minave.getRectangle().x + (minave.getRectangle().width / 2);
             disparo = new Disparo_Personaje(x, minave.getRectangle().y - 50);
@@ -117,10 +121,10 @@ public class Game extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if (disparo != null) {
                         //crea la animacion de disparo 
-                        if (disparo.getY() != 0) {
+                        if (disparo.getY() != -10) {
                             disparo.setLocation(x, disparo.movimientoDisparo());
                         } else {
-                            remove(disparo);
+                            panel.remove(disparo);
                             disparo = null;
                             t.stop();
                             t = null;
@@ -139,9 +143,11 @@ public class Game extends JPanel {
                         for (int i = 0; i < enemigos.length; i++) {
                             for (int j = 0; j < enemigos[i].length; j++) {
                                 if (disparo != null && enemigos[i][j].getRectangle().intersects(disparo.getRectangle()) && !band[i][j]) {
+                                    new musica("src/source/music/muere enemigo.wav").reproducirClic();
                                     panel.remove(disparo);
                                     panel.remove(enemigos[i][j]);
                                     band[i][j] = true;
+                                    sumaPuntos(i, j);
                                     t.stop();
                                     t = null;
                                     disparo = null;
@@ -149,6 +155,16 @@ public class Game extends JPanel {
                                 }
                             }
                         }
+                    }
+                }
+
+                private void sumaPuntos(int i, int j) {
+                    if (enemigos[i][j] instanceof Calamar) {
+                        vista_superior.SumarPuntos(30);
+                    } else if (enemigos[i][j] instanceof Cangrejo) {
+                        vista_superior.SumarPuntos(20);
+                    } else if (enemigos[i][j] instanceof Pulpo) {
+                        vista_superior.SumarPuntos(10);
                     }
                 }
             });
@@ -162,7 +178,7 @@ public class Game extends JPanel {
          * condicional que pregunta si los enemigos con el personaje han
          * colisionado.
          */
-        Timer hiloMovimiento = new Timer(400, new ActionListener() {
+        hiloMovimiento = new Timer(700, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /**
@@ -171,10 +187,12 @@ public class Game extends JPanel {
                  * caso contrario si llega a 0 baja. Pregunta si la nave a sido
                  * intersectada por alguno de los enemigos
                  */
+                new musica("src/source/music/Movimiento de enemigo.wav").reproducirClic();
                 for (int i = 0; i < enemigos.length; i++) {
                     for (int j = 0; j < enemigos[i].length; j++) {
                         if (enemigos[i][j].getBounds().intersects(minave.getBounds())) {
-                            //Muerte Aqui
+                            panel.add(new GameOver());
+                            hiloMovimiento.stop();
                         }
                         if (enemigos[i][j].getX() > 550 && bandera) {
                             moverTodasAbajo();

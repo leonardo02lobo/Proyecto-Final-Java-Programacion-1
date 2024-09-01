@@ -1,6 +1,6 @@
 package Juego.enemigos;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import javax.swing.*;
 
 public abstract class Alienigenas extends JLabel {
@@ -10,6 +10,8 @@ public abstract class Alienigenas extends JLabel {
     private int x;
     private int y;
     protected final int movimiento = 10;
+    private final int DataTime = 300;
+    public Timer animacion = null;
 
     public Alienigenas(int x, int y) {
         this.x = x;
@@ -18,6 +20,10 @@ public abstract class Alienigenas extends JLabel {
 
     public Rectangle getRectangle() {
         return this.getBounds();
+    }
+    
+    public int getDataTime(){
+        return this.DataTime;
     }
 
     public void moverX() {
@@ -36,4 +42,5 @@ public abstract class Alienigenas extends JLabel {
     }
     
     public abstract void AnimacionYSkin(byte tipo);
+    public abstract int getPuntos();
 }
