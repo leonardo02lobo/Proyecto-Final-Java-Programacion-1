@@ -17,10 +17,17 @@ public class Vista_Superior extends JPanel {
         Score.setForeground(Color.WHITE);
         add(Score);
         
-        JLabel Points = new JLabel();
         Points.setFont(new Font("OCR A Extended",2,20));
-        Points.setText("    POINTS: ");
+        Points.setText("    POINTS: "+puntos);
         Points.setForeground(Color.WHITE);
         add(Points);
     }
+    
+    public void SumarPuntos(int suma){
+        puntos += suma;
+        Points.setText("    POINTS: "+puntos);
+    }
+    
+    private JLabel Points = new JLabel();
+    private int puntos = 0;
 }

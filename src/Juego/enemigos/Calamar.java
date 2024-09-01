@@ -35,7 +35,7 @@ public class Calamar extends Alienigenas {
         }else{
             imagen = imagenCalamarColor;
         }
-        Timer AnimacionCalamar = new Timer(200, new ActionListener() {
+        animacion = new Timer(getDataTime(), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setIcon(new ImageIcon(imagen[i].getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
@@ -45,7 +45,13 @@ public class Calamar extends Alienigenas {
                 }
             }
         });
-        AnimacionCalamar.start();
+        animacion.start();
         
     }
+
+    @Override
+    public int getPuntos() {
+        return 30;
+    }
+
 }

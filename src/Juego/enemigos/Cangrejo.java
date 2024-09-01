@@ -34,7 +34,7 @@ public class Cangrejo extends Alienigenas {
         }else{
             imagen = imagenCangrejoColor;
         }
-        Timer AnimacionCangrejo = new Timer(200, new ActionListener() {
+        animacion = new Timer(getDataTime(), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setIcon(new ImageIcon(imagen[i].getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
@@ -44,6 +44,12 @@ public class Cangrejo extends Alienigenas {
                 }
             }
         });
-        AnimacionCangrejo.start();
+        animacion.start();
     }
+
+    @Override
+    public int getPuntos() {
+        return 20;
+    }
+
 }
