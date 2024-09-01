@@ -9,7 +9,7 @@ public class nave extends JLabel {
     private int ancho = 70;
     private int alto = 30;
     private int x = 250;
-    private int y = 650;
+    private int y = 550;
     private final int movimiento = 10;
     private Image imagenNave = new ImageIcon(getClass().getResource("../../source/personaje/Disparador.png")).getImage();
 
