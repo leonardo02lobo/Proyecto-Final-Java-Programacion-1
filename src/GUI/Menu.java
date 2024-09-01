@@ -19,13 +19,13 @@ public class Menu extends JPanel {
         setBackground(Color.BLACK);
 
         //Llamando al metodo 'crearEtiquetas' para las diferentes opciones del juego
-        crearEtiquetas(titulo, 100, 50, 300, 70, false, 40);
-        crearEtiquetas(iniciarPartida, 170, 150, 150, 30, false, 20);
-        crearEtiquetas(GuardarPartida, 170, 200, 150, 30, false, 20);
-        crearEtiquetas(Instrucciones, 170, 250, 150, 30, false, 20);
-        crearEtiquetas(Creditos, 170, 300, 150, 30, false, 20);
-        crearEtiquetas(SalirJuego, 170, 350, 150, 30, false, 20);
-        crearEtiquetas(flecha, 130, 150, 30, 30, true, 20);
+        crearEtiquetas(titulo, 60, 50, 350, 70, false, 35);
+        crearEtiquetas(iniciarPartida, 163, 150, 180, 30, false, 20);
+        crearEtiquetas(GuardarPartida, 150, 200, 200, 30, false, 20);
+        crearEtiquetas(Instrucciones, 160, 250, 180, 30, false, 20);
+        crearEtiquetas(Creditos, 160, 300, 180, 30, false, 20);
+        crearEtiquetas(SalirJuego, 160, 350, 200, 30, false, 20);
+        crearEtiquetas(flecha, 105, 150, 30, 30, true, 20);
         flecha.setFocusable(true);
     }
 
@@ -43,9 +43,13 @@ public class Menu extends JPanel {
             Image imagenFlecha = new ImageIcon(getClass().getResource("../source/flecha_menu.png")).getImage();
             label.setIcon(new ImageIcon(imagenFlecha.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         }
-        label.setFont(new Font("calibri", Font.BOLD, tam));
+        if(label.equals(titulo)){
+            label.setForeground(Color.YELLOW);
+        }else{
+            label.setForeground(Color.white);
+        }
+        label.setFont(new Font("OCR A Extended", Font.BOLD, tam));
         label.setBounds(x, y, ancho, alto);
-        label.setForeground(Color.white);
         label.addKeyListener(new Evento_Flecha(x, y));
         add(label);
     }

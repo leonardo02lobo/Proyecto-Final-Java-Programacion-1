@@ -13,7 +13,7 @@ public class Creditos extends JPanel {
         setBackground(Color.BLACK);
         
         JLabel Creditos = new JLabel("Creditos");
-        Creditos.setFont(new Font("monospace", 1, 40));
+        Creditos.setFont(new Font("OCR A Extended", 1, 40));
         Creditos.setBounds(170, 5, 400, 50);
         Creditos.setForeground(Color.YELLOW);
         add(Creditos);
@@ -23,18 +23,18 @@ public class Creditos extends JPanel {
                 + "Desarrollador: Taito Corporation y se lanzo en 1978. \nGénero: Shooter, Arcade.\n" 
                 + "\n" 
                 + "Historia: \n\n"
-                + "   Space Invaders es un juego de naves espaciales que fue un éxito\n instantáneo"
-                + " y se convirtió en uno de los juegos más populares de la\n época.\n "
-                + "Fue diseñado por Tomohiro Nishikado, quien se inspiró en la novela\n de ciencia ficción"
-                + "\"La guerra de los mundos\" y en la película \"Star Wars\". \n\n"
-                + "   El juego ha tenido un gran impacto en la industria de los videojuegos,\n "
-                + "ha sido objeto de numerosas secuelas, remakes y spin-offs,\n"
-                + " y ha inspirado a muchos otros juegos de naves espaciales.\n\n"
+                + "   Space Invaders es un juego de naves espaciales que\n fue un éxito instantáneo"
+                + " y se convirtió en uno de los \njuegos más populares de la época.\n "
+                + "Fue diseñado por Tomohiro Nishikado, quien se inspiró en \nla novela de ciencia ficción "
+                + "\"La guerra de los mundos\"\n y en la película \"Star Wars\". \n\n"
+                + "   El juego ha tenido un gran impacto en la industria de\n los videojuegos, "
+                + "ha sido objeto de numerosas secuelas,\n remakes y spin-offs, "
+                + " y ha inspirado a muchos otros \njuegos de naves espaciales.\n\n"
                 + "Creadores del proyecto de programacion 1:\n"
                 + "\n    Leonardo lobo, CI 31.489.733"
                 + "\n    Moises Becerra, CI 30.965.748 ");
         
-        textArea.setFont(new Font("arial",0,14));
+        textArea.setFont(new Font("OCR A Extended",0,14));
         textArea.setBounds(18, 60, 460, 350);
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.WHITE);
@@ -42,8 +42,9 @@ public class Creditos extends JPanel {
         });
         add(textArea);
 
-        JButton boton = new JButton("atras");
+        JButton boton = new JButton("Atras");
         boton.setBounds(200, 420, 100, 30);
+        boton.setFont(new Font("OCR A Extended",1,18));
         boton.setBackground(Color.BLACK);
         boton.setFocusable(false);
         boton.setForeground(Color.WHITE);

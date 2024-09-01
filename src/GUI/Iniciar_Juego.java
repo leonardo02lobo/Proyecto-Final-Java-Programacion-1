@@ -13,8 +13,8 @@ public class Iniciar_Juego extends JPanel {
         setLayout(null);
         setBackground(Color.BLACK);
 
-        crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 40, false, "");
-        crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 20, false, "");
+        crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 35, false, "");
+        crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 15, false, "");
         crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20, true, "../source/enemigos/Calamar 2.png");
         crearEtiquetas(imagenColor, 300, 250, 100, 100, 20, true, "../source/Sprites Color/enemy1_1.png");
         Cajas(nombre, 100, 180, 300, 30);
@@ -28,7 +28,7 @@ public class Iniciar_Juego extends JPanel {
             label.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
             label.setBorder(BorderFactory.createLineBorder(Color.blue, 1));
         }
-        label.setFont(new Font("calibri", Font.BOLD, tam));
+        label.setFont(new Font("OCR A Extended", Font.BOLD, tam));
         label.setBounds(x, y, ancho, alto);
         label.setForeground(Color.white);
         label.addMouseListener(new MouseAdapter() {
@@ -60,6 +60,7 @@ public class Iniciar_Juego extends JPanel {
 
     private void CrearBoton(JButton boton, int x, int y, int ancho, int alto, String texto) {
         boton.setText(texto);
+        boton.setFont(new Font("OCR A Extended",1,15));
         boton.setBackground(Color.BLACK);
         boton.setFocusable(false);
         boton.setForeground(Color.white);
