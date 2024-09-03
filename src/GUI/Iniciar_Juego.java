@@ -60,7 +60,7 @@ public class Iniciar_Juego extends JPanel {
 
     private void CrearBoton(JButton boton, int x, int y, int ancho, int alto, String texto) {
         boton.setText(texto);
-        boton.setFont(new Font("OCR A Extended",1,15));
+        boton.setFont(new Font("OCR A Extended", 1, 15));
         boton.setBackground(Color.BLACK);
         boton.setFocusable(false);
         boton.setForeground(Color.white);
@@ -71,25 +71,30 @@ public class Iniciar_Juego extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new musica("src/source/music/clic.wav").reproducirClic();
-                if(!(nombre.getText().equals("") && (tipoJuego != 0 || tipoJuego != 1))){
                 if (e.getSource().equals(iniciarJuego)) {
-                    JFrame frame = new JFrame("Space Invader");
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(600, 750);
-                    frame.setLocationRelativeTo(null);
-                    frame.add(new Game(tipoJuego));
-                    frame.setVisible(true);
+                    validarJuego(e);
+                } else if (e.getSource().equals(volver)) {
+                    PanelMenu();
+                }
+            }
+
+            private void validarJuego(ActionEvent e) {
+                if (!(nombre.getText().equals("") && (tipoJuego != 0 || tipoJuego != 1))) {
+                    Game game = new Game(tipoJuego);
+                    game.setVisible(true);
+                    PanelMenu();
                     App.ventana.dispose();
                 } else {
-                    App.panel.removeAll();
-                    App.panel.add(App.menu, BorderLayout.CENTER);
-                    App.panel.revalidate();
-                    App.panel.repaint();
-                    App.menu.requestFocus();
-                }
-                }else{
                     JOptionPane.showMessageDialog(null, "Ingresa el nombre y un tipo de enemigo para continuar");
                 }
+            }
+
+            private void PanelMenu() {
+                App.panel.removeAll();
+                App.panel.add(App.menu, BorderLayout.CENTER);
+                App.panel.revalidate();
+                App.panel.repaint();
+                App.menu.requestFocus();
             }
         }
         boton.addActionListener(new Accion());

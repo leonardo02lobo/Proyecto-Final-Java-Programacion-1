@@ -1,26 +1,51 @@
 package Juego;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Vista_Superior extends JPanel {
+    
     public Vista_Superior(){
         setBackground(Color.BLACK);
-        setLayout(new FlowLayout(FlowLayout.LEFT,20,20));
+        setLayout(new BorderLayout());
+        panelPuntos.setBackground(Color.BLACK);
+        add(panelPuntos,BorderLayout.WEST);
+        
+        panelBoton.setBackground(Color.BLACK);
+        add(panelBoton,BorderLayout.EAST);
+        
         
         JLabel Score = new JLabel();
         Score.setFont(new Font("OCR A Extended",2,20));
         Score.setText("SCORE: ");
         Score.setForeground(Color.WHITE);
-        add(Score);
+        panelPuntos.add(Score);
         
         Points.setFont(new Font("OCR A Extended",2,20));
         Points.setText("    POINTS: "+puntos);
         Points.setForeground(Color.WHITE);
-        add(Points);
+        panelPuntos.add(Points);
+        
+        JButton boton = new JButton();
+        boton.setForeground(Color.WHITE);
+        boton.setBackground(Color.BLACK);
+        boton.setText("Volver al menu");
+        boton.setBounds(400, 10, 100,30);
+        boton.setFocusable(false);
+        boton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                band = true;
+            }
+        });
+        panelBoton.add(boton);
+        
     }
     
     public void SumarPuntos(int suma){
@@ -30,4 +55,7 @@ public class Vista_Superior extends JPanel {
     
     private JLabel Points = new JLabel();
     private int puntos = 0;
+    private JPanel panelPuntos = new JPanel();
+    private JPanel panelBoton = new JPanel();
+    public boolean band = false;
 }

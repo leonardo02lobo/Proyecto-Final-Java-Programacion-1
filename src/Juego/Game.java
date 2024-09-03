@@ -1,5 +1,6 @@
 package Juego;
 
+import static Implementacion.App.ventana;
 import Juego.enemigos.*;
 import Juego.personaje.*;
 import java.awt.*;
@@ -12,13 +13,15 @@ import logica.musica;
  * desarollaran la mayoria de la logica del programa esta clase tendra un hilo
  * que se encargara de repintar todo el Panel para poder una vista a tiempo real
  */
-public class Game extends JPanel {
+public class Game extends JFrame {
 
+    private JPanel principal = new JPanel();
     private nave minave = new nave();
     private JPanel panel = new JPanel();
     private Vista_Inferior vista_inferior = new Vista_Inferior();
     private Vista_Superior vista_superior = new Vista_Superior();
     private NaveNodriza naveNodriza = new NaveNodriza(20, 20);
+    private Pause pause = new Pause();
     private Alienigenas enemigos[][] = {
         {new Calamar(45, 100), new Calamar(90, 100), new Calamar(135, 100), new Calamar(180, 100), new Calamar(225, 100), new Calamar(270, 100), new Calamar(315, 100), new Calamar(360, 100), new Calamar(405, 100), new Calamar(450, 100), new Calamar(495, 100)},
         {new Cangrejo(45, 145), new Cangrejo(90, 145), new Cangrejo(135, 145), new Cangrejo(180, 145), new Cangrejo(225, 145), new Cangrejo(270, 145), new Cangrejo(315, 145), new Cangrejo(360, 145), new Cangrejo(405, 145), new Cangrejo(450, 145), new Cangrejo(495, 145)},
@@ -40,13 +43,25 @@ public class Game extends JPanel {
     private Timer hiloMovimiento = null;
 
     public Game(byte tipoJuego) {
-        setBackground(Color.BLACK);
-        setLayout(new BorderLayout());
+        //agregando el panel
+        principal.setBackground(Color.BLACK);
+        principal.setLayout(new BorderLayout());
         panel.setLayout(null);
         panel.setBackground(Color.BLACK);
-        add(vista_superior, BorderLayout.NORTH);
-        add(panel, BorderLayout.CENTER);
-        add(vista_inferior, BorderLayout.SOUTH);
+        principal.add(vista_superior, BorderLayout.NORTH);
+        principal.add(panel, BorderLayout.CENTER);
+        principal.add(vista_inferior, BorderLayout.SOUTH);
+
+        //colocacion del frame
+        Toolkit miPantalla =   Toolkit.getDefaultToolkit();
+        Image miIcono = miPantalla.getImage("src/source/extra/spaceinvaders_512_icon.png");
+        setIconImage(miIcono);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 750);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        add(principal);
+
         /**
          * en esta parte llamamos a un evento de teclado y hacemos uso de una
          * clase anonima para poder llamar al metodo KeyPressed que se encarga
@@ -72,7 +87,7 @@ public class Game extends JPanel {
         for (int i = 0; i < enemigos.length; i++) {
             for (int j = 0; j < enemigos[i].length; j++) {
                 enemigos[i][j].AnimacionYSkin(tipoJuego);
-                panel.add(enemigos[i][j]);
+                //panel.add(enemigos[i][j]);
             }
         }
         setFocusable(true);
@@ -84,6 +99,19 @@ public class Game extends JPanel {
         hilo = new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (vista_superior.band) {
+                    hiloMovimiento.stop();
+                    panel.add(pause);
+                    vista_superior.band = false;
+                }
+                if (pause.bandera) {
+                    hiloMovimiento.start();
+                    panel.remove(pause);
+                    pause.bandera = false;
+                }
+                if (pause.detener) {
+                    dispose();
+                }
                 naveNodriza.update();
                 panel.revalidate();
                 panel.repaint();

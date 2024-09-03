@@ -3,10 +3,7 @@ package Implementacion;
 import GUI.*;
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Toolkit;
 import javax.swing.*;
 import logica.musica;
 
@@ -22,11 +19,15 @@ public class App {
     public static int alto = 500;
     public static JPanel panel = new JPanel();
     public static Menu menu = new Menu();
+    public static musica Musica = new musica("src/source/music/tema_fondo.wav");
 
     public static void main(String[] args) {
         /**
          * creacion del JFrame y darle los valores con que aparecera
          */
+        Toolkit miPantalla =   Toolkit.getDefaultToolkit();
+        Image miIcono = miPantalla.getImage("src/source/extra/spaceinvaders_512_icon.png");
+        ventana.setIconImage(miIcono);
         ventana.setSize(ancho, alto);
         ventana.setLocationRelativeTo(null);
         panel.setLayout(new BorderLayout());
@@ -36,6 +37,6 @@ public class App {
         ventana.setResizable(false);
         ventana.setTitle("Space Invader");
         ventana.setVisible(true);
-        new musica("src/source/music/tema_fondo.wav").reproducir();
+        Musica.reproducir();
     }
 }

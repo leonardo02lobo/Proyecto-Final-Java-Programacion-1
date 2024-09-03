@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/Implementacion/App.java</file>
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/Juego/Vista_Superior.java</file>
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/GUI/Iniciar_Juego.java</file>
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/GUI/Creditos.java</file>
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/GUI/Instrucciones.java</file>
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/GUI/Menu.java</file>
-            <file>file:/D:/Escritorio/Proyecto-Final-Java-Programacion-1/src/Juego/Game.java</file>
-=======
-            <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/Game.java</file>
-            <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/personaje/Disparo_Personaje.java</file>
-            <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/Disparo.java</file>
-            <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/enemigos/Disparo_Enemigo.java</file>
->>>>>>> d04c97c25b3f627e8ce249dc68dfc77f91e05eb8
-        </group>
+        <group/>
     </open-files>
 </project-private>

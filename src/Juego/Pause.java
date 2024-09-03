@@ -1,0 +1,113 @@
+package Juego;
+
+import GUI.Iniciar_Juego;
+import Implementacion.App;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import logica.musica;
+
+public class Pause extends JPanel {
+
+    private JLabel VolverJuego = new JLabel("Volver al Juego", SwingConstants.CENTER);
+    private JLabel SalirConGuardar = new JLabel("Salir y Guardar", SwingConstants.CENTER);
+    private JLabel SalirSinGuardar = new JLabel("Salir sin Guardar", SwingConstants.CENTER);
+    private JLabel volumen = new JLabel();
+    private JPanel panelVolumen = new JPanel();
+    private byte i = 0;
+    public boolean bandera = false;
+    public boolean detener = false;
+
+    public Pause() {
+        setLayout(new BorderLayout());
+        setBackground(Color.BLACK);
+        setBorder(BorderFactory.createLineBorder(Color.white, 5));
+        setBounds(150, 150, 300, 300);
+
+        panel.setLayout(null);
+        panel.setBackground(Color.BLACK);
+        add(panel, BorderLayout.CENTER);
+
+        panelVolumen.setLayout(new FlowLayout());
+        panelVolumen.setBackground(Color.BLACK);
+        add(panelVolumen, BorderLayout.SOUTH);
+
+        crearEtiquetas(VolverJuego, 0, 50, 300, 70, 20, false, "");
+        crearEtiquetas(SalirSinGuardar, 0, 100, 300, 70, 20, false, "");
+        crearEtiquetas(SalirConGuardar, 0, 150, 300, 70, 20, false, "");
+        crearEtiquetas(volumen, 210, 250, 50, 50, 0, true, "../source/extra/aumentar.jpeg");
+    }
+
+    JPanel panel = new JPanel();
+
+    private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam, boolean band, String ruta) {
+        if (band) {
+            Image imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
+            label.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
+        }
+        label.setFont(new Font("OCR A Extended", 1, tam));
+        label.setBounds(x, y, ancho, alto);
+        label.setForeground(Color.white);
+        class AccionBoton extends MouseAdapter {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new musica("src/source/music/clic.wav").reproducir();
+                if (e.getSource().equals(volumen)) {
+                    i++;
+                    Image imagen = null;
+                    if (i % 2 == 0) {
+                        App.Musica.reproducir();
+                        imagen = new ImageIcon(getClass().getResource("../source/extra/aumentar.jpeg")).getImage();
+                    } else {
+                        App.Musica.detener();
+                        imagen = new ImageIcon(getClass().getResource("../source/extra/silenciar.jpeg")).getImage();
+                    }
+                    volumen.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
+                    if (i > 127) {
+                        i = 0;
+                    }
+                }else if(e.getSource().equals(VolverJuego)){
+                    bandera = true;
+                }else if(e.getSource().equals(SalirConGuardar) || e.getSource().equals(SalirSinGuardar)){
+                    if(e.getSource().equals(SalirConGuardar)){
+                        //guardar partida
+                    }
+                    detener = true;
+                    App.ventana.setVisible(true);
+                }             
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!(label.equals(volumen))) {
+                    e.getComponent().setFont(new Font("OCR A Extended", Font.TRUETYPE_FONT, tam));
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!(label.equals(volumen))) {
+                    e.getComponent().setFont(new Font("OCR A Extended", Font.BOLD, tam));
+                }
+            }
+
+        }
+        label.addMouseListener(new AccionBoton());
+        if (label.equals(volumen)) {
+            panelVolumen.add(label);
+        } else {
+            panel.add(label);
+        }
+    }
+
+}
