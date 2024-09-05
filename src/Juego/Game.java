@@ -1,12 +1,11 @@
 package Juego;
 
-import static Implementacion.App.ventana;
 import Juego.enemigos.*;
 import Juego.personaje.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import logica.musica;
+import logica.*;
 
 /**
  * Esta clase se encarga del panel y de todo el hilo del juego en esta clase se
@@ -20,7 +19,7 @@ public class Game extends JFrame {
     private JPanel panel = new JPanel();
     private Vista_Inferior vista_inferior = new Vista_Inferior();
     private Vista_Superior vista_superior = new Vista_Superior();
-    private NaveNodriza naveNodriza = new NaveNodriza(20, 20);
+    private NaveNodriza naveNodriza = null;
     private Pause pause = new Pause();
     private Alienigenas enemigos[][] = {
         {new Calamar(45, 100), new Calamar(90, 100), new Calamar(135, 100), new Calamar(180, 100), new Calamar(225, 100), new Calamar(270, 100), new Calamar(315, 100), new Calamar(360, 100), new Calamar(405, 100), new Calamar(450, 100), new Calamar(495, 100)},
@@ -41,6 +40,7 @@ public class Game extends JFrame {
     private boolean bandera = true;
     private Timer hilo = null;
     private Timer hiloMovimiento = null;
+    private Timer hiloNave = null;
 
     public Game(byte tipoJuego) {
         //agregando el panel
@@ -53,10 +53,11 @@ public class Game extends JFrame {
         principal.add(vista_inferior, BorderLayout.SOUTH);
 
         //colocacion del frame
-        Toolkit miPantalla =   Toolkit.getDefaultToolkit();
+        Toolkit miPantalla = Toolkit.getDefaultToolkit();
         Image miIcono = miPantalla.getImage("src/source/extra/spaceinvaders_512_icon.png");
         setIconImage(miIcono);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Space Invader");
         setSize(600, 750);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -78,7 +79,6 @@ public class Game extends JFrame {
                 }
             }
         });
-        panel.add(naveNodriza);
         panel.add(minave);
 
         /**
@@ -87,7 +87,7 @@ public class Game extends JFrame {
         for (int i = 0; i < enemigos.length; i++) {
             for (int j = 0; j < enemigos[i].length; j++) {
                 enemigos[i][j].AnimacionYSkin(tipoJuego);
-                //panel.add(enemigos[i][j]);
+                panel.add(enemigos[i][j]);
             }
         }
         setFocusable(true);
@@ -101,23 +101,67 @@ public class Game extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (vista_superior.band) {
                     hiloMovimiento.stop();
+                    detenerAnimacionEnemigos();
+                    hiloNave.stop();
                     panel.add(pause);
                     vista_superior.band = false;
                 }
                 if (pause.bandera) {
                     hiloMovimiento.start();
+                    hiloNave.start();
                     panel.remove(pause);
+                    seguirAnimacion();
                     pause.bandera = false;
                 }
                 if (pause.detener) {
                     dispose();
                 }
-                naveNodriza.update();
                 panel.revalidate();
                 panel.repaint();
             }
+
+            private void detenerAnimacionEnemigos() {
+                for (int i = 0; i < enemigos.length; i++) {
+                    for (int j = 0; j < enemigos[i].length; j++) {
+                        enemigos[i][j].animacion.stop();
+                        panel.remove(enemigos[i][j]);
+                    }
+                }
+            }
+
+            private void seguirAnimacion() {
+                for (int i = 0; i < enemigos.length; i++) {
+                    for (int j = 0; j < enemigos[i].length; j++) {
+                        enemigos[i][j].animacion.start();
+                        panel.add(enemigos[i][j]);
+                    }
+                }
+            }
         });
         hilo.start();
+        /**
+         * Este hilo se encarga de la nave nodriza y esta configurado para un
+         * timer entre 30 a 40segundos para volver a aparecer, la variable
+         * tiempo se encarga de almacenar un numero entre el rango dicho, y
+         * calula el tiempo
+         */
+        hiloNave = new Timer(1000, new ActionListener() {
+            int tiempo = (int) (Math.random() * (40 - 30) + 30);
+            int cont = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tiempo == cont) {
+                    naveNodriza = new NaveNodriza(-20, 20);
+                    panel.add(naveNodriza);
+                    naveNodriza.update();
+                    cont = 0;
+                    tiempo = (int) (Math.random() * (40 - 30) + 30);
+                }
+                cont++;
+            }
+        });
+        hiloNave.start();
     }
 
     /**
@@ -180,6 +224,18 @@ public class Game extends JFrame {
                                     t = null;
                                     disparo = null;
                                     break enemigo;
+                                } else if (naveNodriza != null) {
+                                    try {
+                                        if (disparo.getRectangle().intersects(naveNodriza.getRectangle())) {
+                                            panel.remove(disparo);
+                                            panel.remove(naveNodriza);
+                                            vista_superior.SumarPuntos(naveNodriza.getPuntos());
+                                            disparo = null;
+                                            t = null;
+                                            t.stop();
+                                        }
+                                    } catch (Exception ex) {
+                                    }
                                 }
                             }
                         }
@@ -238,6 +294,7 @@ public class Game extends JFrame {
                     }
                 }
             }
+            
 
             /**
              * Este metodo se activa si la ultima fila de la matriz de enemigos

@@ -1,20 +1,9 @@
 package Juego;
 
-import GUI.Iniciar_Juego;
-import Implementacion.App;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import logica.musica;
+import Implementacion.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class Pause extends JPanel {
 
@@ -61,7 +50,6 @@ public class Pause extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                new musica("src/source/music/clic.wav").reproducir();
                 if (e.getSource().equals(volumen)) {
                     i++;
                     Image imagen = null;
@@ -76,15 +64,15 @@ public class Pause extends JPanel {
                     if (i > 127) {
                         i = 0;
                     }
-                }else if(e.getSource().equals(VolverJuego)){
+                } else if (e.getSource().equals(VolverJuego)) {
                     bandera = true;
-                }else if(e.getSource().equals(SalirConGuardar) || e.getSource().equals(SalirSinGuardar)){
-                    if(e.getSource().equals(SalirConGuardar)){
+                } else if (e.getSource().equals(SalirConGuardar) || e.getSource().equals(SalirSinGuardar)) {
+                    if (e.getSource().equals(SalirConGuardar)) {
                         //guardar partida
                     }
                     detener = true;
                     App.ventana.setVisible(true);
-                }             
+                }
             }
 
             @Override

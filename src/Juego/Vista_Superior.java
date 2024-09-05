@@ -1,13 +1,8 @@
 package Juego;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class Vista_Superior extends JPanel {
     
@@ -35,7 +30,7 @@ public class Vista_Superior extends JPanel {
         JButton boton = new JButton();
         boton.setForeground(Color.WHITE);
         boton.setBackground(Color.BLACK);
-        boton.setText("Volver al menu");
+        boton.setText("Menu");
         boton.setBounds(400, 10, 100,30);
         boton.setFocusable(false);
         boton.addActionListener(new ActionListener() {

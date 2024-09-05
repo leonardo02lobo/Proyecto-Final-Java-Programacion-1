@@ -1,7 +1,7 @@
 package GUI;
 
 import Implementacion.*;
-import Juego.Game;
+import Juego.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -98,7 +98,25 @@ public class Iniciar_Juego extends JPanel {
             }
         }
         boton.addActionListener(new Accion());
+
+        App.panel.setFocusable(true);
+        App.panel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    volverMenu();
+                }
+            }
+        });
         add(boton);
+    }
+
+    private void volverMenu() {
+        App.panel.removeAll();
+        App.panel.add(App.menu, BorderLayout.CENTER);
+        App.panel.revalidate();
+        App.panel.repaint();
+        App.menu.requestFocus();
     }
 
     private JLabel etiquetaNombre = new JLabel("Ingrese su nombre:", SwingConstants.CENTER);

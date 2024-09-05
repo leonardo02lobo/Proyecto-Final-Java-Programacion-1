@@ -1,10 +1,15 @@
 package Juego.enemigos;
 
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
+import logica.musica;
 
 public class NaveNodriza extends Alienigenas {
-    
+
     private int movimientoX = 0;
     private final int movimientoY = 20;
 
@@ -19,8 +24,19 @@ public class NaveNodriza extends Alienigenas {
     }
 
     public void update() {
-        movimientoX+=movimiento;
-        setLocation(movimientoX, movimientoY);
+        animacion = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (movimientoX < 600) {
+                    new musica("src/source/music/mysterykilled.wav").reproducirClic();
+                    movimientoX += movimiento;
+                } else {
+                    animacion.stop();
+                }
+                setLocation(movimientoX, movimientoY);
+            }
+        });
+        animacion.start();
     }
 
     @Override
@@ -30,6 +46,12 @@ public class NaveNodriza extends Alienigenas {
 
     @Override
     public int getPuntos() {
-        return (int)(Math.random()*(100-50)+50);
+        return (int) (Math.random() * (100 - 50) + 50);
     }
+
+    @Override
+    public Rectangle getRectangle() {
+        return this.getBounds();
+    }
+
 }
