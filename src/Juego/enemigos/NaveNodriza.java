@@ -24,14 +24,34 @@ public class NaveNodriza extends Alienigenas {
     }
 
     public void update() {
+        int random = (int) (Math.random() * 100) + 1;
+        if (random % 2 == 0) {
+            movimientoX = 0;
+        } else {
+            movimientoX = 600;
+        }
         animacion = new Timer(200, new ActionListener() {
+        boolean final_Ciclo = false;
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (movimientoX < 600) {
-                    new musica("src/source/music/mysterykilled.wav").reproducirClic();
-                    movimientoX += movimiento;
-                } else {
-                    animacion.stop();
+                try {       
+                    if (movimientoX < 650) {
+                        new musica("src/source/music/mysterykilled.wav").reproducirClic();
+                        movimientoX += movimiento;
+                        if(movimientoX >= 650){
+                            final_Ciclo = true;
+                        }
+                    } else {
+                        new musica("src/source/music/mysterykilled.wav").reproducirClic();
+                        movimientoX -= movimiento;
+                        if(movimientoX <= -50){
+                            final_Ciclo = true;
+                        }
+                    }
+                } finally {
+                    if(final_Ciclo){
+                        animacion.stop();
+                    }
                 }
                 setLocation(movimientoX, movimientoY);
             }

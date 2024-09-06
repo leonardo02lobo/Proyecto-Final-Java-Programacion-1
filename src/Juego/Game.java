@@ -15,12 +15,15 @@ import logica.*;
 public class Game extends JFrame {
 
     private JPanel principal = new JPanel();
-    private nave minave = new nave();
+    private Disparo_Enemigo dis;
+    private nave minave;
     private JPanel panel = new JPanel();
     private Vista_Inferior vista_inferior = new Vista_Inferior();
     private Vista_Superior vista_superior = new Vista_Superior();
     private NaveNodriza naveNodriza = null;
     private Pause pause = new Pause();
+    private GameOver game_over = new GameOver();
+    private byte tipoJuego;
     private Alienigenas enemigos[][] = {
         {new Calamar(45, 100), new Calamar(90, 100), new Calamar(135, 100), new Calamar(180, 100), new Calamar(225, 100), new Calamar(270, 100), new Calamar(315, 100), new Calamar(360, 100), new Calamar(405, 100), new Calamar(450, 100), new Calamar(495, 100)},
         {new Cangrejo(45, 145), new Cangrejo(90, 145), new Cangrejo(135, 145), new Cangrejo(180, 145), new Cangrejo(225, 145), new Cangrejo(270, 145), new Cangrejo(315, 145), new Cangrejo(360, 145), new Cangrejo(405, 145), new Cangrejo(450, 145), new Cangrejo(495, 145)},
@@ -41,6 +44,7 @@ public class Game extends JFrame {
     private Timer hilo = null;
     private Timer hiloMovimiento = null;
     private Timer hiloNave = null;
+    public static boolean band_finalizar_Juego = false;
 
     public Game(byte tipoJuego) {
         //agregando el panel
@@ -63,6 +67,14 @@ public class Game extends JFrame {
         setResizable(false);
         add(principal);
 
+        this.tipoJuego = tipoJuego;
+        Logica_Juego();
+    }
+
+    /**
+     * Este metodo se encarga de llamar e craer toda la logica del juego
+     */
+    private void Logica_Juego() {
         /**
          * en esta parte llamamos a un evento de teclado y hacemos uso de una
          * clase anonima para poder llamar al metodo KeyPressed que se encarga
@@ -79,6 +91,7 @@ public class Game extends JFrame {
                 }
             }
         });
+        minave = new nave();
         panel.add(minave);
 
         /**
@@ -112,31 +125,17 @@ public class Game extends JFrame {
                     panel.remove(pause);
                     seguirAnimacion();
                     pause.bandera = false;
+
                 }
-                if (pause.detener) {
+                if (pause.detener || band_finalizar_Juego) {
                     dispose();
                 }
+                //revisa si el disparo del enemigo a sido colisionado con el del jugador
+                ColisionDisparoEnemigoPersonaje();
                 panel.revalidate();
                 panel.repaint();
             }
 
-            private void detenerAnimacionEnemigos() {
-                for (int i = 0; i < enemigos.length; i++) {
-                    for (int j = 0; j < enemigos[i].length; j++) {
-                        enemigos[i][j].animacion.stop();
-                        panel.remove(enemigos[i][j]);
-                    }
-                }
-            }
-
-            private void seguirAnimacion() {
-                for (int i = 0; i < enemigos.length; i++) {
-                    for (int j = 0; j < enemigos[i].length; j++) {
-                        enemigos[i][j].animacion.start();
-                        panel.add(enemigos[i][j]);
-                    }
-                }
-            }
         });
         hilo.start();
         /**
@@ -257,14 +256,41 @@ public class Game extends JFrame {
     }
 
     private void MoverEnemigos() {
+        dis = new Disparo_Enemigo(30, 20);
         /**
          * Este hilo crea la animacion de movimiento de los enemigos y tiene un
          * condicional que pregunta si los enemigos con el personaje han
          * colisionado.
          */
         hiloMovimiento = new Timer(700, new ActionListener() {
+            boolean colision = false;
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //crear colision  para que muera el personaje
+                if (vista_inferior.VidasTotales < 1) {
+                    Game_Over();
+                }
+                if (dis != null) {
+                    colision = false;
+                }
+                try {
+                    panel.add(dis);
+                    dis.setLocation(dis.getX(), dis.movimientoDisparo());
+                    if (dis.getRectangle().intersects(minave.getRectangle()) && !colision) {
+                        panel.remove(dis);
+                        vista_inferior.QuitarVida();
+                        panel.remove(minave);
+                        minave = null;
+                        dis = null;
+                        minave = new nave();
+                        panel.add(minave);
+                        dis = new Disparo_Enemigo(30, 20);
+                        colision = true;
+                    }
+                } catch (Exception ex) {
+                }
                 /**
                  * Recorre la matriz y pregunta si la ultima fila de los
                  * enemigos llego a la cordenada 550, si es asi baja la fila. En
@@ -274,9 +300,8 @@ public class Game extends JFrame {
                 new musica("src/source/music/Movimiento de enemigo.wav").reproducirClic();
                 for (int i = 0; i < enemigos.length; i++) {
                     for (int j = 0; j < enemigos[i].length; j++) {
-                        if (enemigos[i][j].getBounds().intersects(minave.getBounds())) {
-                            panel.add(new GameOver());
-                            hiloMovimiento.stop();
+                        if (enemigos[i][j].getBounds().intersects(minave.getBounds()) && !band[i][j]) {
+                            Game_Over();
                         }
                         if (enemigos[i][j].getX() > 550 && bandera) {
                             moverTodasAbajo();
@@ -294,7 +319,6 @@ public class Game extends JFrame {
                     }
                 }
             }
-            
 
             /**
              * Este metodo se activa si la ultima fila de la matriz de enemigos
@@ -310,5 +334,55 @@ public class Game extends JFrame {
             }
         });
         hiloMovimiento.start();
+    }
+
+    /**
+     * Este metodo se encarga de revisar si el disparo de los enemigos fue
+     * colisionado con el disparo de la nave, si es asi se elimina y se vuelve a
+     * crear el disparo
+     */
+    private void ColisionDisparoEnemigoPersonaje() {
+        try {
+            if (disparo.getRectangle().intersects(dis.getRectangle())) {
+                new musica("src/source/music/Muerte pistola.wav").reproducirClic();
+                panel.remove(dis);
+                panel.remove(disparo);
+                dis = null;
+                dis = new Disparo_Enemigo(30, 20);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void Game_Over() {
+        panel.add(game_over);
+        hiloMovimiento.stop();
+        detenerAnimacionEnemigos();
+        hiloNave.stop();
+        if (naveNodriza != null) {
+            naveNodriza.animacion.stop();
+        }
+    }
+
+    private void detenerAnimacionEnemigos() {
+        panel.remove(dis);
+        panel.remove(minave);
+        for (int i = 0; i < enemigos.length; i++) {
+            for (int j = 0; j < enemigos[i].length; j++) {
+                enemigos[i][j].animacion.stop();
+                panel.remove(enemigos[i][j]);
+            }
+        }
+    }
+
+    private void seguirAnimacion() {
+        panel.add(dis);
+        panel.add(minave);
+        for (int i = 0; i < enemigos.length; i++) {
+            for (int j = 0; j < enemigos[i].length; j++) {
+                enemigos[i][j].animacion.start();
+                panel.add(enemigos[i][j]);
+            }
+        }
     }
 }

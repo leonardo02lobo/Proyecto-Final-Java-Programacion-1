@@ -1,5 +1,6 @@
 package Juego;
 
+import Implementacion.App;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -55,6 +56,14 @@ class Botones extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new musica("src/source/music/clic.wav").reproducirClic();
+                if(e.getSource().equals(volver)){
+                    App.ventana.setVisible(true);
+                    Game.band_finalizar_Juego = true;
+                    App.menu.requestFocus();
+                }
+                if(e.getSource().equals(salir)){
+                    System.exit(0);
+                }
             }
         }
         boton.addActionListener(new Accion());

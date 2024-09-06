@@ -72,6 +72,7 @@ public class Pause extends JPanel {
                     }
                     detener = true;
                     App.ventana.setVisible(true);
+                    App.menu.requestFocus();
                 }
             }
 
