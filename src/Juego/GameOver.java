@@ -58,7 +58,7 @@ class Botones extends JPanel {
                 new musica("src/source/music/clic.wav").reproducirClic();
                 if(e.getSource().equals(volver)){
                     App.ventana.setVisible(true);
-                    Game.band_finalizar_Juego = true;
+                    Nivel_1.band_finalizar_Juego = true;
                     App.menu.requestFocus();
                 }
                 if(e.getSource().equals(salir)){

@@ -80,8 +80,8 @@ public class Iniciar_Juego extends JPanel {
 
             private void validarJuego(ActionEvent e) {
                 if (!(nombre.getText().equals("") && (tipoJuego != 0 || tipoJuego != 1))) {
-                    Game game = new Game(tipoJuego);
-                    game.setVisible(true);
+                    Nivel_1 game = new Nivel_1(tipoJuego);
+                    game.inicializarFrame();
                     PanelMenu();
                     App.ventana.dispose();
                 } else {

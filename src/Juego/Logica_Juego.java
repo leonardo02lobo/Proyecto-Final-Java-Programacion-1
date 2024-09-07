@@ -2,42 +2,35 @@ package Juego;
 
 import Juego.enemigos.*;
 import Juego.personaje.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import logica.*;
 
-/**
- * Esta clase se encarga del panel y de todo el hilo del juego en esta clase se
- * desarollaran la mayoria de la logica del programa esta clase tendra un hilo
- * que se encargara de repintar todo el Panel para poder una vista a tiempo real
- */
-public class Game extends JFrame implements Serializable{
+public class Logica_Juego implements Serializable {
 
     //variables necesarias para el funcionamiento de la app
-    //variables de la apariencia del juego
-    private JPanel principal = new JPanel();
-    private JPanel panel = new JPanel();
-    private Vista_Inferior vista_inferior = new Vista_Inferior();
-    private Vista_Superior vista_superior = new Vista_Superior();
-    private Pause pause = new Pause();
-    private GameOver game_over = new GameOver();
-    private byte tipoJuego;
-    private Guardar_Datos_Partida guardar_datos = new Guardar_Datos_Partida();
-    private Win ganador = new Win();
+    protected JPanel principal = new JPanel();
+    protected JPanel panel = new JPanel();
+    protected Vista_Inferior vista_inferior = new Vista_Inferior();
+    protected Vista_Superior vista_superior = new Vista_Superior();
+    protected Pause pause = new Pause();
+    protected GameOver game_over = new GameOver();
+    protected byte tipoJuego;
+    protected Guardar_Datos_Partida guardar_datos = new Guardar_Datos_Partida();
+    protected Win ganador = new Win();
 
-    //variables de la logica del juego
-    private nave minave;
-    private NaveNodriza naveNodriza = null;
-    private Disparo_Enemigo dis;
-    private Alienigenas enemigos[][] = {
+    //------------------------VARIABLES DEL JUEGO-----------------------------------------------------------
+    protected nave minave;
+    protected NaveNodriza naveNodriza = null;
+    protected Disparo_Enemigo dis;
+    protected Alienigenas enemigos[][] = {
         {new Calamar(45, 100), new Calamar(90, 100), new Calamar(135, 100), new Calamar(180, 100), new Calamar(225, 100), new Calamar(270, 100), new Calamar(315, 100), new Calamar(360, 100), new Calamar(405, 100), new Calamar(450, 100), new Calamar(495, 100)},
         {new Cangrejo(45, 145), new Cangrejo(90, 145), new Cangrejo(135, 145), new Cangrejo(180, 145), new Cangrejo(225, 145), new Cangrejo(270, 145), new Cangrejo(315, 145), new Cangrejo(360, 145), new Cangrejo(405, 145), new Cangrejo(450, 145), new Cangrejo(495, 145)},
         {new Cangrejo(45, 190), new Cangrejo(90, 190), new Cangrejo(135, 190), new Cangrejo(180, 190), new Cangrejo(225, 190), new Cangrejo(270, 190), new Cangrejo(315, 190), new Cangrejo(360, 190), new Cangrejo(405, 190), new Cangrejo(450, 190), new Cangrejo(495, 190)},
         {new Pulpo(45, 235), new Pulpo(90, 235), new Pulpo(135, 235), new Pulpo(180, 235), new Pulpo(225, 235), new Pulpo(270, 235), new Pulpo(315, 235), new Pulpo(360, 235), new Pulpo(405, 235), new Pulpo(450, 235), new Pulpo(495, 235)},
         {new Pulpo(45, 280), new Pulpo(90, 280), new Pulpo(135, 280), new Pulpo(180, 280), new Pulpo(225, 280), new Pulpo(270, 280), new Pulpo(315, 280), new Pulpo(360, 280), new Pulpo(405, 280), new Pulpo(450, 280), new Pulpo(495, 280)},};
-    private boolean band[][] = {
+    protected boolean band[][] = {
         {false, false, false, false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false, false, false, false},
@@ -45,69 +38,24 @@ public class Game extends JFrame implements Serializable{
         {false, false, false, false, false, false, false, false, false, false, false},};
 
     //variables extras para el funcionamiento del juego
-    private Timer t = null;
-    private Disparo_Personaje disparo = null;
-    private boolean bandera = true;
-    private Timer hilo = null;
-    private Timer hiloMovimiento = null;
-    private Timer hiloNave = null;
+    protected Timer t = null;
+    protected Disparo_Personaje disparo = null;
+    protected boolean bandera = true;
+    protected Timer hilo = null;
+    protected Timer hiloMovimiento = null;
+    protected Timer hiloNave = null;
     public static boolean band_finalizar_Juego = false;
-    private int MoverEnemigo = 700;
+    protected int MoverEnemigo = 700;
+    //--------------------------------------------------------------------------------------------------------
 
-    //metodo constructor del juego que inicializa el frame y coloca los paneles respectivos
-    public Game(byte tipoJuego) {
-        //agregando el panel
-        principal.setBackground(Color.BLACK);
-        principal.setLayout(new BorderLayout());
-        panel.setLayout(null);
-        panel.setBackground(Color.BLACK);
-        principal.add(vista_superior, BorderLayout.NORTH);
-        principal.add(panel, BorderLayout.CENTER);
-        principal.add(vista_inferior, BorderLayout.SOUTH);
-
-        //colocacion del frame
-        Toolkit miPantalla = Toolkit.getDefaultToolkit();
-        Image miIcono = miPantalla.getImage("src/source/extra/spaceinvaders_512_icon.png");
-        setIconImage(miIcono);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Space Invader");
-        setSize(600, 750);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        add(principal);
-
-        //variable que determina la apariencia del jugador
-        this.tipoJuego = tipoJuego;
-
-        //metodo que se encarga de la logica del juego
-        Logica_Juego();
-    }
-
-//--------------------------------METODOS DE LA LOGICA DEL JUEGO---------------------------------------------
+    //--------------------------------METODOS DE LA LOGICA DEL JUEGO---------------------------------------------
     /**
      * Este metodo se encarga de llamar e craer toda la logica del juego
      */
-    private void Logica_Juego() {
+    public void Logica_Juego() {
         //metodo para el movimiento de los enemigos
         MoverEnemigos();
 
-        /**
-         * en esta parte llamamos a un evento de teclado y hacemos uso de una
-         * clase anonima para poder llamar al metodo KeyPressed que se encarga
-         * de mover la nave y crear los objetos de disparo de la nave
-         */
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                minave.mover(e);
-
-                //crear el disparo
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    crearDisparo();
-                }
-            }
-        });
-        setFocusable(true);
         //Instanciar y agregar la nave
         minave = new nave(tipoJuego);
         panel.add(minave);
@@ -121,49 +69,6 @@ public class Game extends JFrame implements Serializable{
                 panel.add(enemigos[i][j]);
             }
         }
-
-        /**
-         * esta Timer se encarga de revalidar y repintar el panel para tener una
-         * vista refresacada del juego, tambien esta al pendiente cuando los
-         * enemigos disparan y si el disparo colisiona con el disparo del
-         * enemigo o llega al final del panel, este un delay de 15 milisegundo
-         * para que la respuesta sea lo mas rapida posible
-         */
-        Game guardar = this;
-        hilo = new Timer(15, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (vista_superior.band) {
-                    hiloMovimiento.stop();
-                    detenerAnimacionEnemigos();
-                    hiloNave.stop();
-                    panel.add(pause);
-                    vista_superior.band = false;
-                }
-                if (pause.bandera) {
-                    hiloMovimiento.start();
-                    hiloNave.start();
-                    panel.remove(pause);
-                    seguirAnimacion();
-                    pause.bandera = false;
-
-                }
-                if(pause.guardar_partida){
-                    guardar_datos.GuardarDatos(guardar);
-                    hilo.stop();
-                }
-                if (pause.detener || band_finalizar_Juego) {
-                    dispose();
-                }
-                //revisa si el disparo del enemigo a sido colisionado con el del jugador 
-                ColisionDisparoEnemigoPersonaje();
-
-                panel.revalidate();
-                panel.repaint();
-            }
-
-        });
-        hilo.start();
         /**
          * Este hilo se encarga de la nave nodriza y esta configurado para un
          * timer entre 30 a 40segundos para volver a aparecer, la variable
@@ -190,11 +95,60 @@ public class Game extends JFrame implements Serializable{
     }
 
     /**
+     * Este hilo permite determinar la iteracciones con los otros paneles y el
+     * poder tomar acciones o decisiones, este metodo recibe un JFrame por
+     * parametro.
+     */
+    public void hiloJuego(JFrame ventana) {
+        /**
+         * esta Timer se encarga de revalidar y repintar el panel para tener una
+         * vista refresacada del juego, tambien esta al pendiente cuando los
+         * enemigos disparan y si el disparo colisiona con el disparo del
+         * enemigo o llega al final del panel, este un delay de 15 milisegundo
+         * para que la respuesta sea lo mas rapida posible
+         */
+        hilo = new Timer(15, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (vista_superior.band) {
+                    hiloMovimiento.stop();
+                    detenerAnimacionEnemigos();
+                    hiloNave.stop();
+                    panel.add(pause);
+                    vista_superior.band = false;
+                }
+                if (pause.bandera) {
+                    hiloMovimiento.start();
+                    hiloNave.start();
+                    panel.remove(pause);
+                    seguirAnimacion();
+                    pause.bandera = false;
+
+                }
+                if (pause.guardar_partida) {
+                    guardar_datos.GuardarDatos(null);
+                    hilo.stop();
+                }
+                if (pause.detener || band_finalizar_Juego) {
+                    ventana.dispose();
+                }
+                //revisa si el disparo del enemigo a sido colisionado con el del jugador 
+                ColisionDisparoEnemigoPersonaje();
+
+                panel.revalidate();
+                panel.repaint();
+            }
+
+        });
+        hilo.start();
+    }
+
+    /**
      * este metodo se encarga de crear un objeto de tipo Disparo_Personaje y
      * mandarlo hacia arriba, crerando la ilusion de que el disparo va directo a
      * un enemigo
      */
-    private void crearDisparo() {
+    public void crearDisparo() {
         /**
          * Pregunta si el disparo no se a eliminado
          */
@@ -291,7 +245,7 @@ public class Game extends JFrame implements Serializable{
      * pocos el timer se valla incremnetando de velocidad para que sea mas
      * dificil ganar.
      */
-    private void MoverEnemigos() {
+    public void MoverEnemigos() {
         /**
          * Este hilo crea la animacion de movimiento de los enemigos y tiene un
          * condicional que pregunta si los enemigos con el personaje han
@@ -378,7 +332,7 @@ public class Game extends JFrame implements Serializable{
      * colisionado con el disparo de la nave, si es asi se elimina y se vuelve a
      * crear el disparo.
      */
-    private void ColisionDisparoEnemigoPersonaje() {
+    public void ColisionDisparoEnemigoPersonaje() {
         //traer el objeto de disparo enemigo a este metod y hacer todas las comprobaciones
         int aux = (int) (Math.random() * band.length);
         if (!band[band.length - 1][aux] && dis == null) {
@@ -397,7 +351,7 @@ public class Game extends JFrame implements Serializable{
         }
     }
 
-    private void Game_Over() {
+    public void Game_Over() {
         panel.add(game_over);
         hiloMovimiento.stop();
         detenerAnimacionEnemigos();
@@ -406,8 +360,8 @@ public class Game extends JFrame implements Serializable{
             naveNodriza.animacion.stop();
         }
     }
-    
-    private void Win() {
+
+    public void Win() {
         panel.add(ganador);
         hiloMovimiento.stop();
         detenerAnimacionEnemigos();
@@ -417,7 +371,7 @@ public class Game extends JFrame implements Serializable{
         }
     }
 
-    private void detenerAnimacionEnemigos() {
+    public void detenerAnimacionEnemigos() {
         try {
             panel.remove(dis);
         } catch (Exception e) {
@@ -431,7 +385,7 @@ public class Game extends JFrame implements Serializable{
         }
     }
 
-    private void seguirAnimacion() {
+    public void seguirAnimacion() {
         try {
             panel.add(dis);
         } catch (Exception e) {
@@ -440,12 +394,14 @@ public class Game extends JFrame implements Serializable{
         for (int i = 0; i < enemigos.length; i++) {
             for (int j = 0; j < enemigos[i].length; j++) {
                 enemigos[i][j].animacion.start();
-                panel.add(enemigos[i][j]);
+                if (!band[i][j]) {
+                    panel.add(enemigos[i][j]);
+                }
             }
         }
     }
 
-    private void DeterminarTotalEnemigos() {
+    public void DeterminarTotalEnemigos() {
         int total = 0;
 
         for (int i = 0; i < band.length; i++) {
@@ -456,7 +412,7 @@ public class Game extends JFrame implements Serializable{
             }
         }
 
-        if(total == 0){
+        if (total == 0) {
             Win();
         }
         if (total == 10) {

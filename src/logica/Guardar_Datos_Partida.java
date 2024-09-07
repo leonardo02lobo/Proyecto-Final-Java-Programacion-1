@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class Guardar_Datos_Partida {
 
-    public void GuardarDatos(Game juego) {
+    public void GuardarDatos(Nivel_1 juego) {
         try {
             ObjectOutputStream guardar = new ObjectOutputStream(new FileOutputStream("src/Datos/Guardado De Partida.txt"));
 
@@ -17,14 +17,14 @@ public class Guardar_Datos_Partida {
         }
     }
 
-    public Game obtenerPartida() {
-        Game cargarPartida = null;
+    public Nivel_1 obtenerPartida() {
+        Nivel_1 cargarPartida = null;
 
         ObjectInputStream leerJuego;
         try {
             leerJuego = new ObjectInputStream(new FileInputStream("src/Datos/Guardado De Partida.txt"));
 
-            cargarPartida = (Game) leerJuego.readObject();
+            cargarPartida = (Nivel_1) leerJuego.readObject();
         } catch (Exception ex) {
             Logger.getLogger(Guardar_Datos_Partida.class.getName()).log(Level.SEVERE, null, ex);
         }
