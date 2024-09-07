@@ -15,6 +15,7 @@ public class Pause extends JPanel {
     private byte i = 0;
     public boolean bandera = false;
     public boolean detener = false;
+    public boolean guardar_partida = false;
 
     public Pause() {
         setLayout(new BorderLayout());
@@ -68,7 +69,7 @@ public class Pause extends JPanel {
                     bandera = true;
                 } else if (e.getSource().equals(SalirConGuardar) || e.getSource().equals(SalirSinGuardar)) {
                     if (e.getSource().equals(SalirConGuardar)) {
-                        //guardar partida
+                        guardar_partida = true;
                     }
                     detener = true;
                     App.ventana.setVisible(true);

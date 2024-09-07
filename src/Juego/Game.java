@@ -4,6 +4,7 @@ import Juego.enemigos.*;
 import Juego.personaje.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 import logica.*;
 
@@ -12,7 +13,7 @@ import logica.*;
  * desarollaran la mayoria de la logica del programa esta clase tendra un hilo
  * que se encargara de repintar todo el Panel para poder una vista a tiempo real
  */
-public class Game extends JFrame {
+public class Game extends JFrame implements Serializable{
 
     //variables necesarias para el funcionamiento de la app
     //variables de la apariencia del juego
@@ -23,6 +24,8 @@ public class Game extends JFrame {
     private Pause pause = new Pause();
     private GameOver game_over = new GameOver();
     private byte tipoJuego;
+    private Guardar_Datos_Partida guardar_datos = new Guardar_Datos_Partida();
+    private Win ganador = new Win();
 
     //variables de la logica del juego
     private nave minave;
@@ -126,6 +129,7 @@ public class Game extends JFrame {
          * enemigo o llega al final del panel, este un delay de 15 milisegundo
          * para que la respuesta sea lo mas rapida posible
          */
+        Game guardar = this;
         hilo = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,6 +147,10 @@ public class Game extends JFrame {
                     seguirAnimacion();
                     pause.bandera = false;
 
+                }
+                if(pause.guardar_partida){
+                    guardar_datos.GuardarDatos(guardar);
+                    hilo.stop();
                 }
                 if (pause.detener || band_finalizar_Juego) {
                     dispose();
@@ -332,7 +340,7 @@ public class Game extends JFrame {
                         if (enemigos[i][j].getBounds().intersects(minave.getBounds()) && !band[i][j]) {
                             Game_Over();
                         }
-                        if (enemigos[i][j].getX() > panel.getWidth()-50 && bandera && !band[i][j]) {
+                        if (enemigos[i][j].getX() > panel.getWidth() - 50 && bandera && !band[i][j]) {
                             moverTodasAbajo();
                             bandera = false;
                         }
@@ -398,6 +406,16 @@ public class Game extends JFrame {
             naveNodriza.animacion.stop();
         }
     }
+    
+    private void Win() {
+        panel.add(ganador);
+        hiloMovimiento.stop();
+        detenerAnimacionEnemigos();
+        hiloNave.stop();
+        if (naveNodriza != null) {
+            naveNodriza.animacion.stop();
+        }
+    }
 
     private void detenerAnimacionEnemigos() {
         try {
@@ -438,6 +456,9 @@ public class Game extends JFrame {
             }
         }
 
+        if(total == 0){
+            Win();
+        }
         if (total == 10) {
             MoverEnemigo /= 2;
             hiloMovimiento.stop();
