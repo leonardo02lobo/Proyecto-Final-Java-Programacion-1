@@ -55,7 +55,6 @@ public class Vista_Inferior extends JPanel {
      */
     public void InicializarVidas() {
         JLabel vidasPersonaje[] = new JLabel[VidasTotales - 1];
-        System.out.println(vidasPersonaje.length + " " + VidasTotales);
         for (int i = 0; i < vidasPersonaje.length; i++) {
             try {
                 vidasPersonaje[i] = new JLabel();

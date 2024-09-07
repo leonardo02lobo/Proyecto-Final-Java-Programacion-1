@@ -10,7 +10,7 @@ import logica.musica;
 
 public class NaveNodriza extends Alienigenas {
 
-    private int movimientoX = 0;
+    private int movimientoX;
     private final int movimientoY = 20;
 
     public NaveNodriza(int x, int y) {
@@ -24,32 +24,35 @@ public class NaveNodriza extends Alienigenas {
     }
 
     public void update() {
-        int random = (int) (Math.random() * 100) + 1;
-        if (random % 2 == 0) {
+        int random = (int) (Math.random() * 2);
+        int movimiento = 5;
+        int direction;
+
+        if (random == 0) {
             movimientoX = 0;
+            direction = 1; 
         } else {
-            movimientoX = 600;
+            movimientoX = 550;
+            direction = -1;
         }
-        animacion = new Timer(200, new ActionListener() {
-        boolean final_Ciclo = false;
+        if(animacion != null){
+            animacion.stop();
+            animacion = null;
+        }
+
+        animacion = new Timer(16, new ActionListener() {
+            boolean final_Ciclo = false;
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {       
-                    if (movimientoX < 650) {
-                        new musica("src/source/music/mysterykilled.wav").reproducirClic();
-                        movimientoX += movimiento;
-                        if(movimientoX >= 650){
-                            final_Ciclo = true;
-                        }
-                    } else {
-                        new musica("src/source/music/mysterykilled.wav").reproducirClic();
-                        movimientoX -= movimiento;
-                        if(movimientoX <= -50){
-                            final_Ciclo = true;
-                        }
+                new musica("src/source/music/mysterykilled.wav").reproducirClic();
+                try {
+                    movimientoX += movimiento * direction;
+                    if ((direction == 1 && movimientoX >= 600) || (direction == -1 && movimientoX <= -50)) {
+                        final_Ciclo = true;
                     }
                 } finally {
-                    if(final_Ciclo){
+                    if (final_Ciclo) {
                         animacion.stop();
                     }
                 }
