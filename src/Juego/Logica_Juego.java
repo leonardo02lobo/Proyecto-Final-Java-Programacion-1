@@ -2,6 +2,7 @@ package Juego;
 
 import Juego.enemigos.*;
 import Juego.personaje.*;
+import java.awt.Graphics;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
@@ -36,6 +37,11 @@ public class Logica_Juego implements Serializable {
         {false, false, false, false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false, false, false, false},};
+    protected Escudos_Personaje escudos[] = {
+        new Escudos_Personaje(20, 450),
+        new Escudos_Personaje(170, 450),
+        new Escudos_Personaje(320, 450),
+        new Escudos_Personaje(470, 450),};
 
     //variables extras para el funcionamiento del juego
     protected Timer t = null;
@@ -69,6 +75,8 @@ public class Logica_Juego implements Serializable {
                 panel.add(enemigos[i][j]);
             }
         }
+
+        CrearEscudos();
         /**
          * Este hilo se encarga de la nave nodriza y esta configurado para un
          * timer entre 30 a 40segundos para volver a aparecer, la variable
@@ -98,6 +106,8 @@ public class Logica_Juego implements Serializable {
      * Este hilo permite determinar la iteracciones con los otros paneles y el
      * poder tomar acciones o decisiones, este metodo recibe un JFrame por
      * parametro.
+     *
+     * @param ventana
      */
     public void hiloJuego(JFrame ventana) {
         /**
@@ -144,6 +154,16 @@ public class Logica_Juego implements Serializable {
     }
 
     /**
+     * En este metodo se crea los escudos para el juego.
+     */
+    public void CrearEscudos() {
+        for (int i = 0; i < escudos.length; i++) {
+            escudos[i].pintarMatriz();
+            panel.add(escudos[i]);
+        }
+    }
+
+    /**
      * este metodo se encarga de crear un objeto de tipo Disparo_Personaje y
      * mandarlo hacia arriba, crerando la ilusion de que el disparo va directo a
      * un enemigo
@@ -179,6 +199,28 @@ public class Logica_Juego implements Serializable {
                             disparo = null;
                             t.stop();
                             t = null;
+                        }
+
+                        /**
+                         * Esta porcion de codigo crea la colision del disparo
+                         * con el escudo, si este llega a colisionar se rompe
+                         * una posicion random del mismo, hasta quedar
+                         * completamente destruido.
+                         */
+                        for (int i = 0; i < escudos.length; i++) {
+                            try {
+                                if (disparo.getBounds().intersects(escudos[i].getBounds()) && escudos[i].band) {
+                                    escudos[i].Colision();
+                                    panel.remove(disparo);
+                                    disparo = null;
+                                    break;
+                                }
+                                if (!escudos[i].band) {
+                                    panel.remove(escudos[i]);
+                                    escudos[i] = null;
+                                }
+                            } catch (Exception ex) {
+                            }
                         }
                         /**
                          * Se crea una etiqueta para determinar si el usuario le
@@ -267,6 +309,28 @@ public class Logica_Juego implements Serializable {
                 if (dis != null) {
                     colision = false;
                 }
+
+                /**
+                 * Esta porcion de codigo crea la colision del disparo con el
+                 * escudo, si este llega a colisionar se rompe una posicion
+                 * random del mismo, hasta quedar completamente destruido.
+                 */
+                for (int i = 0; i < escudos.length; i++) {
+                    try {
+                        if (dis.getBounds().intersects(escudos[i].getBounds()) && escudos[i].band) {
+                            escudos[i].Colision();
+                            panel.remove(dis);
+                            dis = null;
+                            break;
+                        }
+                        if (!escudos[i].band) {
+                            panel.remove(escudos[i]);
+                            escudos[i] = null;
+                        }
+                    } catch (Exception ex) {
+                    }
+                }
+
                 try {
                     panel.add(dis);
                     dis.setLocation(dis.getX(), dis.movimientoDisparo());

@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public abstract class Disparo extends JLabel {
 
-    protected final int ancho = 12;
-    protected final int alto = 34;
+    protected final int ancho = 10;
+    protected final int alto = 20;
     private int x;
     private int y;
     protected final int movimiento = 30;
