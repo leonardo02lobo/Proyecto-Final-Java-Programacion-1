@@ -2,7 +2,6 @@ package Juego;
 
 import Juego.enemigos.*;
 import Juego.personaje.*;
-import java.awt.Graphics;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
@@ -19,7 +18,8 @@ public class Logica_Juego implements Serializable {
     protected GameOver game_over = new GameOver();
     protected byte tipoJuego;
     protected Guardar_Datos_Partida guardar_datos = new Guardar_Datos_Partida();
-    protected Win ganador = new Win();
+    protected Win ganador;
+    protected boolean finalJuego2 = false;
 
     //------------------------VARIABLES DEL JUEGO-----------------------------------------------------------
     protected nave minave;
@@ -54,7 +54,7 @@ public class Logica_Juego implements Serializable {
     protected int MoverEnemigo = 700;
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------METODOS DE LA LOGICA DEL JUEGO---------------------------------------------
+    //--------------------------------METODOS DE LA LOGICA DEL JUEGO------------------------------------------
     /**
      * Este metodo se encarga de llamar e craer toda la logica del juego
      */
@@ -120,6 +120,9 @@ public class Logica_Juego implements Serializable {
         hilo = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                FinalJuego();
+
                 if (vista_superior.band) {
                     hiloMovimiento.stop();
                     detenerAnimacionEnemigos();
@@ -141,6 +144,7 @@ public class Logica_Juego implements Serializable {
                 }
                 if (pause.detener || band_finalizar_Juego) {
                     ventana.dispose();
+                    band_finalizar_Juego = false;
                 }
                 //revisa si el disparo del enemigo a sido colisionado con el del jugador 
                 ColisionDisparoEnemigoPersonaje();
@@ -302,10 +306,6 @@ public class Logica_Juego implements Serializable {
                 //va revisando la matriz de booleanos para determinar el total de vivos
                 DeterminarTotalEnemigos();
 
-                //crear colision  para que muera el personaje
-                if (vista_inferior.VidasTotales < 1) {
-                    Game_Over();
-                }
                 if (dis != null) {
                     colision = false;
                 }
@@ -355,8 +355,20 @@ public class Logica_Juego implements Serializable {
                 new musica("src/source/music/Movimiento de enemigo.wav").reproducirClic();
                 for (int i = 0; i < enemigos.length; i++) {
                     for (int j = 0; j < enemigos[i].length; j++) {
-                        if (enemigos[i][j].getBounds().intersects(minave.getBounds()) && !band[i][j]) {
-                            Game_Over();
+                        try {
+                            if (enemigos[i][j].getBounds().intersects(minave.getBounds()) && !band[i][j]) {
+                                Game_Over();
+                            }
+                        } catch (Exception ex) {
+                        }
+                        for (int k = 0; k < escudos.length; k++) {
+                            try {
+                                if (enemigos[i][j].getBounds().intersects(escudos[k].getBounds()) && !band[i][j]) {
+                                    panel.remove(escudos[k]);
+                                    escudos[k] = null;
+                                }
+                            } catch (Exception ex) {
+                            }
                         }
                         if (enemigos[i][j].getX() > panel.getWidth() - 50 && bandera && !band[i][j]) {
                             moverTodasAbajo();
@@ -415,7 +427,15 @@ public class Logica_Juego implements Serializable {
         }
     }
 
+    public void FinalJuego() {
+        if (vista_inferior.VidasTotales < 1) {
+            finalJuego2 = true;
+            Game_Over();
+        }
+    }
+
     public void Game_Over() {
+        panel.removeAll();
         panel.add(game_over);
         hiloMovimiento.stop();
         detenerAnimacionEnemigos();
@@ -426,6 +446,7 @@ public class Logica_Juego implements Serializable {
     }
 
     public void Win() {
+        ganador = new Win(true, tipoJuego);
         panel.add(ganador);
         hiloMovimiento.stop();
         detenerAnimacionEnemigos();

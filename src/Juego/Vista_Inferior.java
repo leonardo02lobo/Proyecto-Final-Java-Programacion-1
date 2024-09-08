@@ -67,7 +67,9 @@ public class Vista_Inferior extends JPanel {
     }
 
     public void QuitarVida() {
-        VidasTotales--;
+        if(VidasTotales > 0){
+            VidasTotales--;
+        }
         vidas.setText(Integer.toString(VidasTotales));
         panelVidas.removeAll();
         panelVidas.add(vidas);

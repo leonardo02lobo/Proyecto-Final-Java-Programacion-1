@@ -9,16 +9,17 @@ import javax.swing.*;
  * desarollaran la mayoria de la logica del programa esta clase tendra un hilo
  * que se encargara de repintar todo el Panel para poder una vista a tiempo real
  */
-public class Nivel_1 extends Logica_Juego{
+public class Nivel_1 extends Logica_Juego {
 
     //variables de la apariencia del juego
     private JFrame ventana = new JFrame();
-    
+
     //metodo constructor del juego que inicializa el frame y coloca los paneles respectivos
     public Nivel_1(byte tipoJuego) {
         this.tipoJuego = tipoJuego;//variable que determina la apariencia del jugador
     }
-    
+
+    //-------------------------------CREACION DE LA VENTANA Y LLAMADA A LOS METODOS IMPORNTANTES-----
     /**
      * En este metodo se crea el Jframe y se instancia el panel para poder
      * llamar a la logica del juego.
@@ -29,7 +30,7 @@ public class Nivel_1 extends Logica_Juego{
         Image miIcono = miPantalla.getImage("src/source/extra/spaceinvaders_512_icon.png");
         ventana.setIconImage(miIcono);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setTitle("Space Invader");
+        ventana.setTitle("Space Invader-Nivel 1");
         ventana.setSize(600, 750);
         ventana.setLocationRelativeTo(null);
         ventana.setResizable(false);
@@ -45,10 +46,10 @@ public class Nivel_1 extends Logica_Juego{
         principal.add(panel, BorderLayout.CENTER);
         principal.add(vista_inferior, BorderLayout.SOUTH);
         ventana.setVisible(true);
-        
+
         //metodo que se encarga de la logica del juego
         Logica_Juego();
-        
+
         /**
          * en esta parte llamamos a un evento de teclado y hacemos uso de una
          * clase anonima para poder llamar al metodo KeyPressed que se encarga
@@ -66,7 +67,7 @@ public class Nivel_1 extends Logica_Juego{
             }
         });
         ventana.setFocusable(true);
-        
+
         //llamar al metodo que se encarga de la animacion del juego
         hiloJuego(ventana);
     }
