@@ -18,11 +18,27 @@ public class Nivel_2 extends Logica_Juego {
     private JLabel ondas_Nave2[] = new JLabel[12];
     private Timer hiloNave_Nodriza1 = null;
     private Timer hiloNave_Nodriza2 = null;
+    private Timer animacionEntrada = null;
+    private int[][] posicionesX = {
+        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495},
+        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,},
+        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,},
+        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,},
+        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,}};
+    private int[][] posicionesY = {
+        {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100},
+        {145, 145, 145, 145, 145, 145, 145, 145, 145, 145, 145},
+        {190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190},
+        {235, 235, 235, 235, 235, 235, 235, 235, 235, 235, 235},
+        {280, 280, 280, 280, 280, 280, 280, 280, 280, 280, 280},};
 
     //----------------------------------------------------------------------------------------------
     //metodo constructor del juego que inicializa el frame y coloca los paneles respectivos
     public Nivel_2(byte tipoJuego) {
         this.tipoJuego = tipoJuego;//variable que determina la apariencia del jugador
+    }
+
+    public Nivel_2() {
     }
 
     //-------------------------------CREACION DE LA VENTANA Y LLAMADA A LOS METODOS IMPORNTANTES-----
@@ -53,9 +69,13 @@ public class Nivel_2 extends Logica_Juego {
         principal.add(vista_inferior, BorderLayout.SOUTH);
         ventana.setVisible(true);
 
-        //metodo que se encarga de la logica del juego
+        //metodo que se encarga de la logica del juego y llamar a la nave y los enemigos 
+        Animacion_Entrada();
+        CrearNave();
+//        CrearEnemigos();
         Logica_Juego();
 
+        //estos metodos se encargan de pintar las naves nodrizas de la parte superior de los enemigos
         CrearNaveNodriza1();
         CrearNaveNodriza2();
         /**
@@ -79,6 +99,11 @@ public class Nivel_2 extends Logica_Juego {
         //llamar al metodo que se encarga de la animacion del juego
         hiloJuego(ventana);
 
+    }
+    //--------------------------------ANIMACION DE LOS ENEMIGOS-----------------------------------------------
+
+    public void Animacion_Entrada() {
+       
     }
 
     //--------------------------------METODOS DE LA LOGICA DEL JUEGO------------------------------------------

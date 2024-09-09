@@ -19,6 +19,9 @@ public class Nivel_1 extends Logica_Juego {
         this.tipoJuego = tipoJuego;//variable que determina la apariencia del jugador
     }
 
+    public Nivel_1() {
+    }
+
     //-------------------------------CREACION DE LA VENTANA Y LLAMADA A LOS METODOS IMPORNTANTES-----
     /**
      * En este metodo se crea el Jframe y se instancia el panel para poder
@@ -47,7 +50,9 @@ public class Nivel_1 extends Logica_Juego {
         principal.add(vista_inferior, BorderLayout.SOUTH);
         ventana.setVisible(true);
 
-        //metodo que se encarga de la logica del juego
+        //metodo que se encarga de la logica del juego y llamar a la nave y los enemigos 
+        CrearNave();
+        CrearEnemigos();
         Logica_Juego();
 
         /**

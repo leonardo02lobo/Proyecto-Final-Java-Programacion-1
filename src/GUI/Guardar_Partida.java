@@ -25,7 +25,7 @@ public class Guardar_Partida extends JPanel {
         boton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Nivel_1 juego = new Guardar_Datos_Partida().obtenerPartida();
+                Nivel_1 juego = (Nivel_1) new Guardar_Datos_Partida().obtenerPartida();
             }
         });
         add(boton2);

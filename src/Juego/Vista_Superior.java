@@ -47,6 +47,11 @@ public class Vista_Superior extends JPanel {
         puntos += suma;
         Points.setText("    POINTS: "+puntos);
     }
+
+    public int getPuntos() {
+        return puntos;
+    }
+    
     
     private JLabel Points = new JLabel();
     private int puntos = 0;

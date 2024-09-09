@@ -76,6 +76,10 @@ public class Vista_Inferior extends JPanel {
         InicializarVidas();
     }
 
+    public int getVidasTotales() {
+        return VidasTotales;
+    }
+
     //agregamos las variables privadas
     private JLabel vidas = new JLabel();
     public int VidasTotales = 3;

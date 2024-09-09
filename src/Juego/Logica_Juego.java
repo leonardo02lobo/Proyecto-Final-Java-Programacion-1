@@ -59,29 +59,16 @@ public class Logica_Juego implements Serializable {
      * Este metodo se encarga de llamar e craer toda la logica del juego
      */
     public void Logica_Juego() {
-        //metodo para el movimiento de los enemigos
-        MoverEnemigos();
-
-        //Instanciar y agregar la nave
-        minave = new nave(tipoJuego);
-        panel.add(minave);
 
         /**
-         * Agrega la matriz de los enemigos al panel
+         * Con este metodo se crean los escudos del juego.
          */
-        for (int i = 0; i < enemigos.length; i++) {
-            for (int j = 0; j < enemigos[i].length; j++) {
-                enemigos[i][j].AnimacionYSkin(tipoJuego);
-                panel.add(enemigos[i][j]);
-            }
-        }
-
         CrearEscudos();
         /**
          * Este hilo se encarga de la nave nodriza y esta configurado para un
          * timer entre 30 a 40segundos para volver a aparecer, la variable
          * tiempo se encarga de almacenar un numero entre el rango dicho, y
-         * calula el tiempo
+         * calula el tiempo.
          */
         hiloNave = new Timer(1000, new ActionListener() {
             int tiempo = (int) (Math.random() * (40 - 30) + 30);
@@ -102,6 +89,26 @@ public class Logica_Juego implements Serializable {
         hiloNave.start();
     }
 
+    public void CrearNave() {
+        //Instanciar y agregar la nave
+        minave = new nave(tipoJuego);
+        panel.add(minave);
+    }
+
+    public void CrearEnemigos() {
+        /**
+         * Agrega la matriz de los enemigos al panel.
+         */
+        for (int i = 0; i < enemigos.length; i++) {
+            for (int j = 0; j < enemigos[i].length; j++) {
+                enemigos[i][j].AnimacionYSkin(tipoJuego);
+                panel.add(enemigos[i][j]);
+            }
+        }
+        //metodo para el movimiento de los enemigos
+        MoverEnemigos();
+    }
+
     /**
      * Este hilo permite determinar la iteracciones con los otros paneles y el
      * poder tomar acciones o decisiones, este metodo recibe un JFrame por
@@ -115,7 +122,7 @@ public class Logica_Juego implements Serializable {
          * vista refresacada del juego, tambien esta al pendiente cuando los
          * enemigos disparan y si el disparo colisiona con el disparo del
          * enemigo o llega al final del panel, este un delay de 15 milisegundo
-         * para que la respuesta sea lo mas rapida posible
+         * para que la respuesta sea lo mas rapida posible.
          */
         hilo = new Timer(15, new ActionListener() {
             @Override
