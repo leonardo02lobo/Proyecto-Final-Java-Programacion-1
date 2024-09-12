@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/GUI/Guardar_Partida.java</file>
             <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/Vista_Superior.java</file>
@@ -32,5 +33,8 @@
             <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/GameOver.java</file>
             <file>file:/C:/Users/equipo/Documents/Parciales%20de%20programacion/Programacion%201/Parcial%202%20y%203/Proyecto%20FInal%20Java-Programacion%201/src/Juego/Nivel_1.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 0822b29 (Agregando cambios xml: moises)
     </open-files>
 </project-private>
