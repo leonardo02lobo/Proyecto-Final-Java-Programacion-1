@@ -25,9 +25,9 @@ public class nave extends JLabel {
      * @param tipoJuego
      */
     public nave(byte tipoJuego) {
-        if (tipoJuego == 0) {
+        if(tipoJuego == 0){
             imagenNave = new ImageIcon(nave.class.getResource("/source/personaje/Disparador.png")).getImage();
-        } else {
+        }else{
             imagenNave = new ImageIcon(nave.class.getResource("/source/Sprites Color/ship.png")).getImage();
         }
         setIcon(new ImageIcon(imagenNave.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
