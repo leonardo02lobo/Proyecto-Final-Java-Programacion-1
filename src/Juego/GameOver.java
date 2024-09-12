@@ -7,7 +7,9 @@ import javax.swing.*;
 import logica.*;
 
 public class GameOver extends JPanel {
-
+/**
+ * Ventana que se refleja cuando el usuario pierde
+ */
     public GameOver() {
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -17,7 +19,10 @@ public class GameOver extends JPanel {
         add(new Botones(), BorderLayout.SOUTH);
     }
 }
-
+/**
+ * Esta clase genera el JLabel del titulo Game Over
+ * @author Moises
+ */
 class TituloPerdido extends JPanel {
 
     public TituloPerdido() {
@@ -29,7 +34,11 @@ class TituloPerdido extends JPanel {
     }
     JLabel titulo = new JLabel();
 }
-
+/**
+ * Esta clase se encuentrar los botones que interactuan con la continuedad del usuario,
+ * si quiere salir al menu pricipal o seguir jugando
+ * @author Moises
+ */
 class Botones extends JPanel {
 
     public Botones() {
@@ -37,7 +46,13 @@ class Botones extends JPanel {
         CrearBoton(volver,"volver");
         CrearBoton(salir,"salir del Juego");
     }
-
+/**
+ * Este metodo posee una clase local el cual implementa el ActionListener que detecta el
+ * boton que presiona el usuario
+ * 
+ * @param boton
+ * @param texto 
+ */
     private void CrearBoton(JButton boton, String texto) {
         boton.setText(texto);
         boton.setFont(new Font("OCR A Extended", 1, 15));
