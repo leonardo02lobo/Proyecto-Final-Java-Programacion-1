@@ -5,7 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Win extends JPanel {
-
+/**
+ * Constructor con parametros que llama a las clases internas 
+ * @param band
+ * @param tipoJuego 
+ */
     public Win(boolean band,byte tipoJuego) {
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -15,7 +19,10 @@ public class Win extends JPanel {
         add(new Tiempo(band,tipoJuego), BorderLayout.SOUTH);
     }
 }
-
+/**
+ * Clase interna que al ganar refleja un panel que dice que has avanzado de nivel
+ * @author Moises
+ */
 class TituloGanador extends JPanel {
 
     public TituloGanador() {
@@ -27,7 +34,10 @@ class TituloGanador extends JPanel {
     }
     JLabel titulo = new JLabel();
 }
-
+/**
+ * Clase interna que contiene un timer de 5 segundos para poder mostrar o cargar el segundo nivel
+ * @author Moises
+ */
 class Tiempo extends JPanel {
 
     public Tiempo(boolean band,byte tipoJuego) {
@@ -52,6 +62,7 @@ class Tiempo extends JPanel {
         tiempo.setForeground(Color.white);
         add(tiempo);
     }
+    //Atributos de la clase
     private JLabel tiempo = new JLabel();
     private int segundos = 5;
     private Timer hiloTiempo = null;

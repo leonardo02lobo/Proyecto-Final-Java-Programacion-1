@@ -8,7 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Pulpo extends Alienigenas {
-
+/**
+ * Atributos privados donde se reflejan las imagenes del pulpo ya sea el diseño predeterminado 
+ * o el diseño personalizado
+ */
     private Image imagenPulpoBlanco[] = {
         new ImageIcon(Pulpo.class.getResource("/source/enemigos/Pulpo 1.png")).getImage(),
         new ImageIcon(Pulpo.class.getResource("/source/enemigos/Pulpo 2.png")).getImage(),
@@ -19,17 +22,17 @@ public class Pulpo extends Alienigenas {
         new ImageIcon(Pulpo.class.getResource("/source/Sprites Color/explosiongreen.png")).getImage(),};
     private int i = 0;
     private Image imagen[] = null;
-
+//Posiciones en el palno X y Y
     public Pulpo(int x, int y) {
         super(x, y);
         setBounds(x, y, ancho, alto);
     }
-
+//Colosiones
     @Override
     public Rectangle getRectangle() {
         return this.getBounds();
     }
-
+//Animacion del personaje
     @Override
     public void AnimacionYSkin(byte tipo) {
         if (tipo == 0) {
@@ -51,6 +54,7 @@ public class Pulpo extends Alienigenas {
     }
 
     @Override
+//Puntaje por derribar el pulpo es de 10 puntos
     public int getPuntos() {
         return 10;
     }
