@@ -19,22 +19,18 @@ public class Nivel_2 extends Logica_Juego {
     private Timer hiloNave_Nodriza1 = null;
     private Timer hiloNave_Nodriza2 = null;
     private Timer animacionEntrada = null;
-    private int[][] posicionesX = {
-        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495},
-        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,},
-        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,},
-        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,},
-        {45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495,}};
     private int[][] posicionesY = {
         {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100},
         {145, 145, 145, 145, 145, 145, 145, 145, 145, 145, 145},
         {190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190},
         {235, 235, 235, 235, 235, 235, 235, 235, 235, 235, 235},
         {280, 280, 280, 280, 280, 280, 280, 280, 280, 280, 280},};
+    private boolean disparar = false;
 
     //----------------------------------------------------------------------------------------------
     //metodo constructor del juego que inicializa el frame y coloca los paneles respectivos
     public Nivel_2(byte tipoJuego) {
+        MoverEnemigo = 500;
         this.tipoJuego = tipoJuego;//variable que determina la apariencia del jugador
     }
 
@@ -72,7 +68,7 @@ public class Nivel_2 extends Logica_Juego {
         //metodo que se encarga de la logica del juego y llamar a la nave y los enemigos 
         Animacion_Entrada();
         CrearNave();
-//        CrearEnemigos();
+        
         Logica_Juego();
 
         //estos metodos se encargan de pintar las naves nodrizas de la parte superior de los enemigos
@@ -90,7 +86,9 @@ public class Nivel_2 extends Logica_Juego {
 
                 //crear el disparo
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    crearDisparo();
+                    if(disparar){
+                        crearDisparo();
+                    }
                 }
             }
         });
@@ -103,7 +101,53 @@ public class Nivel_2 extends Logica_Juego {
     //--------------------------------ANIMACION DE LOS ENEMIGOS-----------------------------------------------
 
     public void Animacion_Entrada() {
-       
+        for (int i = 0; i < enemigos.length; i++) {
+            for (int j = 0; j < enemigos[i].length; j++) {
+                enemigos[i][j].AnimacionYSkin(tipoJuego);
+                enemigos[i][j].setLocation(enemigos[i][j].getX(), 650);
+                panel.add(enemigos[i][j]);
+            }
+        }
+
+        animacionEntrada = new Timer(15, new ActionListener() {
+            int movimientoY;
+            int i = 0;
+            int j = 0;
+            boolean bandera = true;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (j < enemigos[i].length - 1) {
+                    if (bandera) {
+                        movimientoY = enemigos[i][j].getY();
+                        bandera = false;
+                    }
+                    if (movimientoY != posicionesY[i][j]) {
+                        movimientoY -= 5;
+                    } else {
+                        if (!bandera) {
+                            j++;
+                            bandera = true;
+                        }
+                    }
+                    enemigos[i][j].setLocation(enemigos[i][j].getX(), movimientoY);
+                } else {
+                    j = 0; 
+                    i++;
+                    if (j < enemigos.length && !bandera) {
+                        bandera = true;
+                        movimientoY = enemigos[i][j].getY();
+                    }
+                }
+                } catch (Exception ex) {
+                    disparar = true;
+                    MoverEnemigos();
+                    animacionEntrada.stop();
+                }
+            }
+        });
+        animacionEntrada.start();
     }
 
     //--------------------------------METODOS DE LA LOGICA DEL JUEGO------------------------------------------

@@ -20,6 +20,7 @@ public class Logica_Juego implements Serializable {
     protected Guardar_Datos_Partida guardar_datos = new Guardar_Datos_Partida();
     protected Win ganador;
     protected boolean finalJuego2 = false;
+    private boolean primerNivel =  true;
 
     //------------------------VARIABLES DEL JUEGO-----------------------------------------------------------
     protected nave minave;
@@ -130,20 +131,23 @@ public class Logica_Juego implements Serializable {
 
                 FinalJuego();
 
-                if (vista_superior.band) {
-                    hiloMovimiento.stop();
-                    detenerAnimacionEnemigos();
-                    hiloNave.stop();
-                    panel.add(pause);
-                    vista_superior.band = false;
-                }
-                if (pause.bandera) {
-                    hiloMovimiento.start();
-                    hiloNave.start();
-                    panel.remove(pause);
-                    seguirAnimacion();
-                    pause.bandera = false;
+                try {
+                    if (vista_superior.band) {
+                        hiloMovimiento.stop();
+                        detenerAnimacionEnemigos();
+                        hiloNave.stop();
+                        panel.add(pause);
+                        vista_superior.band = false;
+                    }
+                    if (pause.bandera) {
+                        hiloMovimiento.start();
+                        hiloNave.start();
+                        panel.remove(pause);
+                        seguirAnimacion();
+                        pause.bandera = false;
 
+                    }
+                } catch (Exception ex) {
                 }
                 if (pause.guardar_partida) {
                     guardar_datos.GuardarDatos(null);
@@ -152,6 +156,7 @@ public class Logica_Juego implements Serializable {
                 if (pause.detener || band_finalizar_Juego) {
                     ventana.dispose();
                     band_finalizar_Juego = false;
+                    finalJuego2 = false;
                 }
                 //revisa si el disparo del enemigo a sido colisionado con el del jugador 
                 ColisionDisparoEnemigoPersonaje();
@@ -461,6 +466,7 @@ public class Logica_Juego implements Serializable {
         if (naveNodriza != null) {
             naveNodriza.animacion.stop();
         }
+        primerNivel = false;
     }
 
     public void detenerAnimacionEnemigos() {
@@ -504,7 +510,7 @@ public class Logica_Juego implements Serializable {
             }
         }
 
-        if (total == 0) {
+        if (total == 0 && primerNivel) {
             Win();
         }
         if (total == 10) {

@@ -1,5 +1,6 @@
 package Juego;
 
+import GUI.Iniciar_Juego;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,20 +17,20 @@ public class Vista_Superior extends JPanel {
         add(panelBoton,BorderLayout.EAST);
         
         
-        JLabel Score = new JLabel();
         Score.setFont(new Font("OCR A Extended",2,20));
-        Score.setText("SCORE: ");
         Score.setForeground(Color.WHITE);
         panelPuntos.add(Score);
         
         Points.setFont(new Font("OCR A Extended",2,20));
         Points.setText("    POINTS: "+puntos);
+        Score.setText("NAME: "+Iniciar_Juego.nombre.getText());
         Points.setForeground(Color.WHITE);
         panelPuntos.add(Points);
         
         JButton boton = new JButton();
         boton.setForeground(Color.WHITE);
         boton.setBackground(Color.BLACK);
+        boton.setFont(new Font("OCR A Extended",2,20));
         boton.setText("Menu");
         boton.setBounds(400, 10, 100,30);
         boton.setFocusable(false);
@@ -50,12 +51,12 @@ public class Vista_Superior extends JPanel {
 
     public int getPuntos() {
         return puntos;
-    }
-    
+    }    
     
     private JLabel Points = new JLabel();
-    private int puntos = 0;
+    public static int puntos = 0;
     private JPanel panelPuntos = new JPanel();
     private JPanel panelBoton = new JPanel();
     public boolean band = false;
+    private JLabel Score = new JLabel();
 }

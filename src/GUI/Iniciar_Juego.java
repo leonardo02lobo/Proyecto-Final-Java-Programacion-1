@@ -80,7 +80,7 @@ public class Iniciar_Juego extends JPanel {
 
             private void validarJuego(ActionEvent e) {
                 if (!(nombre.getText().equals("") && (tipoJuego != 0 || tipoJuego != 1))) {
-                    Nivel_2 game = new Nivel_2(tipoJuego);
+                    Nivel_1 game = new Nivel_1(tipoJuego);
                     game.inicializarFrame();
                     PanelMenu();
                     App.ventana.dispose();
@@ -122,7 +122,7 @@ public class Iniciar_Juego extends JPanel {
     private JLabel etiquetaNombre = new JLabel("Ingrese su nombre:", SwingConstants.CENTER);
     private JLabel imagenBlancoNegro = new JLabel();
     private JLabel imagenColor = new JLabel();
-    private JTextField nombre = new JTextField();
+    public static JTextField nombre = new JTextField();
     private JButton iniciarJuego = new JButton();
     private JButton volver = new JButton();
     private byte tipoJuego;
