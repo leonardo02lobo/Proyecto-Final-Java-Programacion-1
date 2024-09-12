@@ -4,6 +4,7 @@ import Implementacion.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import logica.musica;
 
 public class Instrucciones extends JPanel {
 
@@ -52,11 +53,11 @@ public class Instrucciones extends JPanel {
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.panel.removeAll();
-                App.panel.add(App.menu, BorderLayout.CENTER);
-                App.panel.revalidate();
-                App.panel.repaint();
-                App.menu.requestFocus();
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
+                volverMenu();
             }
         });
         
@@ -64,6 +65,10 @@ public class Instrucciones extends JPanel {
         App.panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     volverMenu();
                 }

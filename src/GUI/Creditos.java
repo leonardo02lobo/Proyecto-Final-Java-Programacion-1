@@ -4,6 +4,7 @@ import Implementacion.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import logica.musica;
 
 public class Creditos extends JPanel {
 
@@ -52,6 +53,10 @@ public class Creditos extends JPanel {
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 volverMenu();
             }
         });
@@ -59,6 +64,10 @@ public class Creditos extends JPanel {
         App.panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     volverMenu();
                 }

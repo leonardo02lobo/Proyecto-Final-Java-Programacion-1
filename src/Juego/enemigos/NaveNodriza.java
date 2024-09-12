@@ -18,7 +18,7 @@ public class NaveNodriza extends Alienigenas {
         super(x, y);
         ancho = 50;
         alto = 30;
-        Image ImagenNave = new ImageIcon(getClass().getResource("../../source/enemigos/Platillo volador.png")).getImage();
+        Image ImagenNave = new ImageIcon(NaveNodriza.class.getResource("/source/enemigos/Platillo volador.png")).getImage();
         setIcon(new ImageIcon(ImagenNave.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         setBounds(x, y, ancho, alto);
     }
@@ -30,12 +30,12 @@ public class NaveNodriza extends Alienigenas {
 
         if (random == 0) {
             movimientoX = 0;
-            direction = 1; 
+            direction = 1;
         } else {
             movimientoX = 550;
             direction = -1;
         }
-        if(animacion != null){
+        if (animacion != null) {
             animacion.stop();
             animacion = null;
         }
@@ -45,7 +45,10 @@ public class NaveNodriza extends Alienigenas {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                new musica("src/source/music/mysterykilled.wav").reproducirClic();
+                try {
+                    new musica("src/source/music/mysterykilled.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 try {
                     movimientoX += movimiento * direction;
                     if ((direction == 1 && movimientoX >= 600) || (direction == -1 && movimientoX <= -50)) {

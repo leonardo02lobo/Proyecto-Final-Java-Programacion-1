@@ -83,7 +83,7 @@ public class Vista_Inferior extends JPanel {
     //agregamos las variables privadas
     private JLabel vidas = new JLabel();
     public int VidasTotales = 3;
-    private Image imagenesVidas = new ImageIcon(getClass().getResource("../source/personaje/Disparador.png")).getImage();
+    private Image imagenesVidas = new ImageIcon(Vista_Inferior.class.getResource("/source/personaje/Disparador.png")).getImage();
     private JPanel panelVidas = new JPanel();
     //creditos
     private JLabel creditos = new JLabel();

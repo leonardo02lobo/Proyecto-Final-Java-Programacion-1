@@ -34,14 +34,14 @@ public class Pause extends JPanel {
         crearEtiquetas(VolverJuego, 0, 50, 300, 70, 20, false, "");
         crearEtiquetas(SalirSinGuardar, 0, 100, 300, 70, 20, false, "");
         crearEtiquetas(SalirConGuardar, 0, 150, 300, 70, 20, false, "");
-        crearEtiquetas(volumen, 210, 250, 50, 50, 0, true, "../source/extra/aumentar.jpeg");
+        crearEtiquetas(volumen, 210, 250, 50, 50, 0, true, "/source/extra/aumentar.jpeg");
     }
 
     JPanel panel = new JPanel();
 
     private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam, boolean band, String ruta) {
         if (band) {
-            Image imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
+            Image imagen = new ImageIcon(Pause.class.getResource(ruta)).getImage();
             label.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         }
         label.setFont(new Font("OCR A Extended", 1, tam));
@@ -56,10 +56,10 @@ public class Pause extends JPanel {
                     Image imagen = null;
                     if (i % 2 == 0) {
                         App.Musica.reproducir();
-                        imagen = new ImageIcon(getClass().getResource("../source/extra/aumentar.jpeg")).getImage();
+                        imagen = new ImageIcon(Pause.class.getResource("/source/extra/aumentar.jpeg")).getImage();
                     } else {
                         App.Musica.detener();
-                        imagen = new ImageIcon(getClass().getResource("../source/extra/silenciar.jpeg")).getImage();
+                        imagen = new ImageIcon(Pause.class.getResource("/source/extra/silenciar.jpeg")).getImage();
                     }
                     volumen.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
                     if (i > 127) {

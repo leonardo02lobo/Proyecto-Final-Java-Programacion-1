@@ -10,11 +10,11 @@ import javax.swing.Timer;
 public class Calamar extends Alienigenas {
 
     private Image imagenCalamarBlanco[] = {
-        new ImageIcon(getClass().getResource("../../source/enemigos/Calamar 1.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/enemigos/Calamar 2.png")).getImage(),};
+        new ImageIcon(Calamar.class.getResource("/source/enemigos/Calamar 1.png")).getImage(),
+        new ImageIcon(Calamar.class.getResource("/source/enemigos/Calamar 2.png")).getImage(),};
     private Image imagenCalamarColor[] = {
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy1_1.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy1_2.png")).getImage(),};
+        new ImageIcon(Calamar.class.getResource("/source/Sprites Color/enemy1_1.png")).getImage(),
+        new ImageIcon(Calamar.class.getResource("/source/Sprites Color/enemy1_2.png")).getImage(),};
     private int i = 0;
     private Image imagen[] = null;
 

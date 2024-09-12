@@ -8,12 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Cangrejo extends Alienigenas {
+
     private Image imagenCangrejoBlanco[] = {
-        new ImageIcon(getClass().getResource("../../source/enemigos/Cangrejo 1.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/enemigos/Cangrejo 2.png")).getImage(),};
+        new ImageIcon(Cangrejo.class.getResource("/source/enemigos/Cangrejo 1.png")).getImage(),
+        new ImageIcon(Cangrejo.class.getResource("/source/enemigos/Cangrejo 2.png")).getImage(),};
     private Image imagenCangrejoColor[] = {
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy2_1.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy2_1.png")).getImage(),};
+        new ImageIcon(Cangrejo.class.getResource("/source/Sprites Color/enemy2_1.png")).getImage(),
+        new ImageIcon(Cangrejo.class.getResource("/source/Sprites Color/enemy2_1.png")).getImage(),};
     private int i = 0;
     private Image imagen[] = null;
 
@@ -29,9 +30,9 @@ public class Cangrejo extends Alienigenas {
 
     @Override
     public void AnimacionYSkin(byte tipo) {
-        if(tipo == 0){
+        if (tipo == 0) {
             imagen = imagenCangrejoBlanco;
-        }else{
+        } else {
             imagen = imagenCangrejoColor;
         }
         animacion = new Timer(getDataTime(), new ActionListener() {

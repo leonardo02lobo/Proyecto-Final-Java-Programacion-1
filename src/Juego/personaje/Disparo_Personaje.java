@@ -22,5 +22,5 @@ public class Disparo_Personaje extends Disparo {
         return this.getBounds();
     }
 
-    private Image imagenDisparo = new ImageIcon(getClass().getResource("../../source/personaje/Bala.png")).getImage();
+    private Image imagenDisparo = new ImageIcon(Disparo_Personaje.class.getResource("/source/personaje/Bala.png")).getImage();
 }

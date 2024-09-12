@@ -10,13 +10,13 @@ import javax.swing.Timer;
 public class Pulpo extends Alienigenas {
 
     private Image imagenPulpoBlanco[] = {
-        new ImageIcon(getClass().getResource("../../source/enemigos/Pulpo 1.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/enemigos/Pulpo 2.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/enemigos/Muerte enemigo.png")).getImage(),};
+        new ImageIcon(Pulpo.class.getResource("/source/enemigos/Pulpo 1.png")).getImage(),
+        new ImageIcon(Pulpo.class.getResource("/source/enemigos/Pulpo 2.png")).getImage(),
+        new ImageIcon(Pulpo.class.getResource("/source/enemigos/Muerte enemigo.png")).getImage(),};
     private Image imagenPulpoColor[] = {
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy3_1.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/enemy3_2.png")).getImage(),
-        new ImageIcon(getClass().getResource("../../source/Sprites Color/explosiongreen.png")).getImage(),};
+        new ImageIcon(Pulpo.class.getResource("/source/Sprites Color/enemy3_1.png")).getImage(),
+        new ImageIcon(Pulpo.class.getResource("/source/Sprites Color/enemy3_2.png")).getImage(),
+        new ImageIcon(Pulpo.class.getResource("/source/Sprites Color/explosiongreen.png")).getImage(),};
     private int i = 0;
     private Image imagen[] = null;
 

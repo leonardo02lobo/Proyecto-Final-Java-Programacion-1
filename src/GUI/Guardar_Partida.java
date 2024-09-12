@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import logica.Guardar_Datos_Partida;
+import logica.musica;
 
 public class Guardar_Partida extends JPanel {
 
@@ -16,6 +17,10 @@ public class Guardar_Partida extends JPanel {
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 volverMenu();
             }
         });

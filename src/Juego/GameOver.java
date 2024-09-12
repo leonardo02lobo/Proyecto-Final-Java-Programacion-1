@@ -1,16 +1,10 @@
 package Juego;
 
-import Implementacion.App;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import logica.musica;
+import Implementacion.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import logica.*;
 
 public class GameOver extends JPanel {
 
@@ -55,7 +49,10 @@ class Botones extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                new musica("src/source/music/clic.wav").reproducirClic();
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 if(e.getSource().equals(volver)){
                     App.ventana.setVisible(true);
                     Nivel_1.band_finalizar_Juego = true;

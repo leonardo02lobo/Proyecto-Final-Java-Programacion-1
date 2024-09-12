@@ -40,7 +40,7 @@ public class Menu extends JPanel {
      */
     private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, boolean band, int tam) {
         if (band) {
-            Image imagenFlecha = new ImageIcon(getClass().getResource("../source/flecha_menu.png")).getImage();
+            Image imagenFlecha = new ImageIcon(Menu.class.getResource("/source/flecha_menu.png")).getImage();
             label.setIcon(new ImageIcon(imagenFlecha.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
         }
         if(label.equals(titulo)){
@@ -95,7 +95,10 @@ public class Menu extends JPanel {
                     System.exit(0);
                 }
             }
-            new musica("src/source/music/clic.wav").reproducirClic();
+            try {
+                new musica("src/source/music/clic.wav").reproducirClic();        
+            } catch (Exception ex) {
+            }
         }
 
         /**
