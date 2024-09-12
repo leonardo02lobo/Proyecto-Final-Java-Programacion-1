@@ -4,8 +4,15 @@ import Implementacion.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import logica.musica;
+import logica.*;
 
+/**
+ * Esta clase nos proporciona el panel de los creditos del juego, los creditos
+ * nos dan una pequeña sinoxis del juego y al final se agregan tanto los autores
+ * originales como los creadores del proyecto
+ *
+ * @author equipo
+ */
 public class Creditos extends JPanel {
 
     public Creditos() {
@@ -13,6 +20,9 @@ public class Creditos extends JPanel {
         setLayout(null);
         setBackground(Color.BLACK);
 
+        /**
+         * Se crean los componentes swing que representa la vista del panel
+         */
         JLabel Creditos = new JLabel("Creditos");
         Creditos.setFont(new Font("OCR A Extended", 1, 40));
         Creditos.setBounds(170, 5, 400, 50);
@@ -50,6 +60,10 @@ public class Creditos extends JPanel {
         boton.setFocusable(false);
         boton.setForeground(Color.WHITE);
 
+        /**
+         * El metodo ActionListener el cual genera el cambio de panel y el
+         * sonido
+         */
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,6 +74,10 @@ public class Creditos extends JPanel {
                 volverMenu();
             }
         });
+        /**
+         * Este ActionListener nos genera otra manera de salir del panel con la
+         * tecla de space manteiendo el fous del panel principal
+         */
         App.panel.setFocusable(true);
         App.panel.addKeyListener(new KeyAdapter() {
             @Override
@@ -76,6 +94,9 @@ public class Creditos extends JPanel {
         add(boton);
     }
 
+    /**
+     * Este metodo privado nos genera un cambio en el panel
+     */
     private void volverMenu() {
         App.panel.removeAll();
         App.panel.add(App.menu, BorderLayout.CENTER);

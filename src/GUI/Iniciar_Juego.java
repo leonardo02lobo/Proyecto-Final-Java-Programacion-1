@@ -7,12 +7,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import logica.*;
 
+/**
+ * Esta clase nos genera el inicio del juego,aqui proporciona como se trabaja el
+ * juego segun los datos que le proporcionemos(tipo de nave y enemigos)
+ *
+ * @author equipo
+ */
 public class Iniciar_Juego extends JPanel {
 
     public Iniciar_Juego() {
         setLayout(null);
         setBackground(Color.BLACK);
 
+        //llamamos todos los componentes para ser pintados en el panel
         crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 35, false, "");
         crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 15, false, "");
         crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20, true, "/source/enemigos/Calamar 2.png");
@@ -22,6 +29,21 @@ public class Iniciar_Juego extends JPanel {
         CrearBoton(volver, 270, 420, 100, 30, "volver");
     }
 
+    /**
+     * Este metodo nos simplifica la llamada a los metodos de los componentes
+     * label, con esto tambien agregamos las imagenes de los enemigos con los
+     * cuales queremos jugar, este metodo posee una accion de mouse para mostrar
+     * de manera visual cual fue el enemigo que el personaje eligio
+     *
+     * @param label
+     * @param x
+     * @param y
+     * @param ancho
+     * @param alto
+     * @param tam
+     * @param band
+     * @param ruta
+     */
     private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam, boolean band, String ruta) {
         if (band) {
             Image imagen = new ImageIcon(Iniciar_Juego.class.getResource(ruta)).getImage();
@@ -52,6 +74,16 @@ public class Iniciar_Juego extends JPanel {
         add(label);
     }
 
+    /**
+     * Este metodo al igual que el anterior nos simplifica el codigo llamando a
+     * los metodos del componente
+     *
+     * @param caja
+     * @param x
+     * @param y
+     * @param ancho
+     * @param alto
+     */
     private void Cajas(JTextField caja, int x, int y, int ancho, int alto) {
         caja.setFont(new Font("calibri", Font.PLAIN, 25));
         caja.setBounds(x, y, ancho, alto);
@@ -61,6 +93,19 @@ public class Iniciar_Juego extends JPanel {
         add(caja);
     }
 
+    /**
+     * Este metodo se encarga de pintar los botones, a su vez posee una accion
+     * de mouse para determinar cual seria la boton que se selecciono, si el
+     * jugador seleciono jugar este valida si se introdujo y nombre para
+     * continuar, y si presiona volver se regresa al otro panel
+     *
+     * @param boton
+     * @param x
+     * @param y
+     * @param ancho
+     * @param alto
+     * @param texto
+     */
     private void CrearBoton(JButton boton, int x, int y, int ancho, int alto, String texto) {
         boton.setText(texto);
         boton.setFont(new Font("OCR A Extended", 1, 15));
@@ -84,6 +129,9 @@ public class Iniciar_Juego extends JPanel {
                 }
             }
 
+            /**
+             * Valida si el usuario a introducido el nombre
+             */
             private void validarJuego(ActionEvent e) {
                 if (!(nombre.getText().equals("") && (tipoJuego != 0 || tipoJuego != 1))) {
                     Nivel_1 game = new Nivel_1(tipoJuego);
@@ -95,6 +143,9 @@ public class Iniciar_Juego extends JPanel {
                 }
             }
 
+            /**
+             * Este metodo privado nos genera un cambio en el panel
+             */
             private void PanelMenu() {
                 App.panel.removeAll();
                 App.panel.add(App.menu, BorderLayout.CENTER);

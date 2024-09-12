@@ -5,14 +5,24 @@ import Juego.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import logica.Guardar_Datos_Partida;
-import logica.musica;
+import logica.*;
 
+/**
+ * Esta clase representa el panel del guardado de partida, esta clase nos
+ * proporcionaria las diferentes partidas jugadas,podiendo cargar y continuar
+ * con varias partidas
+ *
+ * @author equipo
+ */
 public class Guardar_Partida extends JPanel {
 
     public Guardar_Partida() {
         setBackground(Color.BLACK);
 
+        /**
+         * Boton el cual contiene el sonido del clic y llama al metodo para
+         * salir del panel
+         */
         JButton boton = new JButton("atras");
         boton.addActionListener(new ActionListener() {
             @Override
@@ -25,7 +35,10 @@ public class Guardar_Partida extends JPanel {
             }
         });
         add(boton);
-        
+        /**
+         * Este boton deberia llamar a la clase Niveles para poder almacenar los
+         * datos y cargar las diferentes partidas
+         */
         JButton boton2 = new JButton("cargar partida");
         boton2.addActionListener(new ActionListener() {
             @Override
@@ -34,7 +47,9 @@ public class Guardar_Partida extends JPanel {
             }
         });
         add(boton2);
-        
+        /**
+         * Poder salir por medio de la tecla escape hacia el otro panel
+         */
         App.panel.setFocusable(true);
         App.panel.addKeyListener(new KeyAdapter() {
             @Override
@@ -44,9 +59,12 @@ public class Guardar_Partida extends JPanel {
                 }
             }
         });
-        
+
     }
 
+    /**
+     * Este metodo privado nos genera un cambio en el panel
+     */
     private void volverMenu() {
         App.panel.removeAll();
         App.panel.add(App.menu, BorderLayout.CENTER);
