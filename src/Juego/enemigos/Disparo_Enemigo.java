@@ -22,5 +22,5 @@ public class Disparo_Enemigo extends Disparo{
         return this.getBounds();
     }
     
-    private Image imagenDisparo = new ImageIcon(getClass().getResource("../../source/Sprites Color/enemylaser.png")).getImage();
+    private Image imagenDisparo = new ImageIcon(Disparo_Enemigo.class.getResource("/source/Sprites Color/enemylaser.png")).getImage();
 }

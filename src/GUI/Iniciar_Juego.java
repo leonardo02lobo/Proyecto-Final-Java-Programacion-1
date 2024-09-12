@@ -15,8 +15,8 @@ public class Iniciar_Juego extends JPanel {
 
         crearEtiquetas(new JLabel("Space Invader", SwingConstants.CENTER), 100, 50, 300, 70, 35, false, "");
         crearEtiquetas(etiquetaNombre, 140, 130, 200, 30, 15, false, "");
-        crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20, true, "../source/enemigos/Calamar 2.png");
-        crearEtiquetas(imagenColor, 300, 250, 100, 100, 20, true, "../source/Sprites Color/enemy1_1.png");
+        crearEtiquetas(imagenBlancoNegro, 100, 250, 100, 100, 20, true, "/source/enemigos/Calamar 2.png");
+        crearEtiquetas(imagenColor, 300, 250, 100, 100, 20, true, "/source/Sprites Color/enemy1_1.png");
         Cajas(nombre, 100, 180, 300, 30);
         CrearBoton(iniciarJuego, 120, 420, 100, 30, "Iniciar");
         CrearBoton(volver, 270, 420, 100, 30, "volver");
@@ -24,7 +24,7 @@ public class Iniciar_Juego extends JPanel {
 
     private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam, boolean band, String ruta) {
         if (band) {
-            Image imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
+            Image imagen = new ImageIcon(Iniciar_Juego.class.getResource(ruta)).getImage();
             label.setIcon(new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
             label.setBorder(BorderFactory.createLineBorder(Color.blue, 1));
         }
@@ -43,7 +43,10 @@ public class Iniciar_Juego extends JPanel {
                     imagenColor.setBorder(BorderFactory.createLineBorder(Color.white, 3));
                     tipoJuego = 1;
                 }
-                new musica("src/source/music/clic.wav").reproducirClic();
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
             }
         });
         add(label);
@@ -70,7 +73,10 @@ public class Iniciar_Juego extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                new musica("src/source/music/clic.wav").reproducirClic();
+                try {
+                    new musica("src/source/music/clic.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 if (e.getSource().equals(iniciarJuego)) {
                     validarJuego(e);
                 } else if (e.getSource().equals(volver)) {

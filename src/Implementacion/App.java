@@ -37,6 +37,9 @@ public class App {
         ventana.setResizable(false);
         ventana.setTitle("Space Invader");
         ventana.setVisible(true);
-        Musica.reproducir();
+        try {
+            Musica.reproducir();
+        } catch (Exception e) {
+        }
     }
 }

@@ -1,6 +1,6 @@
 package Juego;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import javax.swing.*;
 
 public abstract class Disparo extends JLabel {

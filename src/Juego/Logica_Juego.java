@@ -20,7 +20,7 @@ public class Logica_Juego implements Serializable {
     protected Guardar_Datos_Partida guardar_datos = new Guardar_Datos_Partida();
     protected Win ganador;
     protected boolean finalJuego2 = false;
-    private boolean primerNivel =  true;
+    private boolean primerNivel = true;
 
     //------------------------VARIABLES DEL JUEGO-----------------------------------------------------------
     protected nave minave;
@@ -190,7 +190,10 @@ public class Logica_Juego implements Serializable {
          */
         if (disparo == null) {
             //crea la musica
-            new musica("src/source/music/disparo.wav").reproducirClic();
+            try {
+                new musica("src/source/music/disparo.wav").reproducirClic();
+            } catch (Exception ex) {
+            }
             //crea un disparo y lo posiciona y lo añade al panel
             int x = minave.getRectangle().x + (minave.getRectangle().width / 2);
             disparo = new Disparo_Personaje(x, minave.getRectangle().y - 50);
@@ -252,7 +255,10 @@ public class Logica_Juego implements Serializable {
                         for (int i = 0; i < enemigos.length; i++) {
                             for (int j = 0; j < enemigos[i].length; j++) {
                                 if (disparo != null && enemigos[i][j].getRectangle().intersects(disparo.getRectangle()) && !band[i][j]) {
-                                    new musica("src/source/music/muere enemigo.wav").reproducirClic();
+                                    try {
+                                        new musica("src/source/music/muere enemigo.wav").reproducirClic();
+                                    } catch (Exception ex) {
+                                    }
                                     panel.remove(disparo);
                                     panel.remove(enemigos[i][j]);
                                     band[i][j] = true;
@@ -364,7 +370,10 @@ public class Logica_Juego implements Serializable {
                  * caso contrario si llega a 0 baja, Pregunta si la nave a sido
                  * intersectada por alguno de los enemigos.
                  */
-                new musica("src/source/music/Movimiento de enemigo.wav").reproducirClic();
+                try {
+                    new musica("src/source/music/Movimiento de enemigo.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 for (int i = 0; i < enemigos.length; i++) {
                     for (int j = 0; j < enemigos[i].length; j++) {
                         try {
@@ -430,7 +439,10 @@ public class Logica_Juego implements Serializable {
         }
         try {
             if (disparo.getRectangle().intersects(dis.getRectangle()) || dis.getY() > 520) {
-                new musica("src/source/music/Muerte pistola.wav").reproducirClic();
+                try {
+                    new musica("src/source/music/Muerte pistola.wav").reproducirClic();
+                } catch (Exception ex) {
+                }
                 panel.remove(dis);
                 panel.remove(disparo);
                 dis = null;
