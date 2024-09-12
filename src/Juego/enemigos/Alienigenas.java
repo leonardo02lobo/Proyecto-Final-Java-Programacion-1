@@ -4,7 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 
 public abstract class Alienigenas extends JLabel {
-
+/**
+ * Atributos de la clase que determinan la proporcion de los alienigenas, sus movientos tanto en X como en Y,
+ * tambien posee un metodo rectangle que generan las colisiones, ademas el metodo getDataTime genra la animacion
+ * en la que los alienigenas se van a pintar dentro del panel
+ * 
+ */
     protected int ancho = 25;
     protected int alto = 25;
     private int x;
@@ -40,7 +45,7 @@ public abstract class Alienigenas extends JLabel {
         x -= movimiento;
         setLocation(x, y);
     }
-    
+    //Metodos abstractos
     public abstract void AnimacionYSkin(byte tipo);
     public abstract int getPuntos();
 }

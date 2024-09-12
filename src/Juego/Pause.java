@@ -6,7 +6,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Pause extends JPanel {
-
+/**
+ * Atributos del lod JLabel usados en los panel 
+ */
     private JLabel VolverJuego = new JLabel("Volver al Juego", SwingConstants.CENTER);
     private JLabel SalirConGuardar = new JLabel("Salir y Guardar", SwingConstants.CENTER);
     private JLabel SalirSinGuardar = new JLabel("Salir sin Guardar", SwingConstants.CENTER);
@@ -16,7 +18,7 @@ public class Pause extends JPanel {
     public boolean bandera = false;
     public boolean detener = false;
     public boolean guardar_partida = false;
-
+//Consstructor de la clase
     public Pause() {
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -38,7 +40,19 @@ public class Pause extends JPanel {
     }
 
     JPanel panel = new JPanel();
-
+    /**
+     * Metodo privado que contiene las imagenes y proporcion de las mismas , tambien se encuentra
+     * el metodo publico llamado mouseClicked que este al darle click al boton que contiene una imagen
+     * silencia o activa la musica del juego
+     * @param label
+     * @param x
+     * @param y
+     * @param ancho
+     * @param alto
+     * @param tam
+     * @param band
+     * @param ruta 
+     */
     private void crearEtiquetas(JLabel label, int x, int y, int ancho, int alto, int tam, boolean band, String ruta) {
         if (band) {
             Image imagen = new ImageIcon(Pause.class.getResource(ruta)).getImage();

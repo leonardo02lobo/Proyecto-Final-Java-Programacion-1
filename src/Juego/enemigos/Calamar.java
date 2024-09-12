@@ -8,7 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Calamar extends Alienigenas {
-
+/**
+ * En estos atributos privados su funcion es pintar los personajes en el panel asignandole su posicion tanto en X como en Y
+ * 
+ */
     private Image imagenCalamarBlanco[] = {
         new ImageIcon(Calamar.class.getResource("/source/enemigos/Calamar 1.png")).getImage(),
         new ImageIcon(Calamar.class.getResource("/source/enemigos/Calamar 2.png")).getImage(),};
@@ -22,12 +25,15 @@ public class Calamar extends Alienigenas {
         super(x, y);
         setBounds(x, y, ancho, alto);
     }
-
+//Genera las colisiones
     @Override
     public Rectangle getRectangle() {
         return this.getBounds();
     }
-    
+/**
+ * El siguiente metodo se encarga de la animacion de los personajes
+ * @param tipo 
+ */    
     @Override
     public void AnimacionYSkin(byte tipo){
         if(tipo == 0){
@@ -48,7 +54,7 @@ public class Calamar extends Alienigenas {
         animacion.start();
         
     }
-
+//En el siguiente metodo publico aplicamos polimorfismo ya que los alienigenas trabajan con diferentes puntos
     @Override
     public int getPuntos() {
         return 30;

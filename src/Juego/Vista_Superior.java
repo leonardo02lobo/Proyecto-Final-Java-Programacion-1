@@ -6,7 +6,12 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Vista_Superior extends JPanel {
-    
+    /**
+     * Metodo constructor que contiene JLabels y JPanel encargados de mostar el nombre 
+     * de usuario, puntos, tambien muestra el boton llamado menu que muestra un panel 
+     * que le permite al usuario tener varias opcciones como volver al juegos, guardar y salir
+     * y salir sin guardar
+     */
     public Vista_Superior(){
         setBackground(Color.BLACK);
         setLayout(new BorderLayout());
@@ -43,7 +48,7 @@ public class Vista_Superior extends JPanel {
         panelBoton.add(boton);
         
     }
-    
+    //Metodo publico que muestra el puntaje obtenido por el usuario
     public void SumarPuntos(int suma){
         puntos += suma;
         Points.setText("    POINTS: "+puntos);
@@ -52,7 +57,7 @@ public class Vista_Superior extends JPanel {
     public int getPuntos() {
         return puntos;
     }    
-    
+    //Atributos de esta clase
     private JLabel Points = new JLabel();
     public static int puntos = 0;
     private JPanel panelPuntos = new JPanel();

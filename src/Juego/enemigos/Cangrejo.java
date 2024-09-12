@@ -8,7 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Cangrejo extends Alienigenas {
-
+/**
+ * Atributos privados encargados de pintar los personajes en el panel y tambien se encuentra su constructor 
+ * que establece su posicion y recorrido
+ */
     private Image imagenCangrejoBlanco[] = {
         new ImageIcon(Cangrejo.class.getResource("/source/enemigos/Cangrejo 1.png")).getImage(),
         new ImageIcon(Cangrejo.class.getResource("/source/enemigos/Cangrejo 2.png")).getImage(),};
@@ -22,12 +25,15 @@ public class Cangrejo extends Alienigenas {
         super(x, y);
         setBounds(x, y, ancho, alto);
     }
-
+//Genera las colisiones del mismo
     @Override
     public Rectangle getRectangle() {
         return this.getBounds();
     }
-
+/**
+ * Snimacion de los personajes 
+ * @param tipo 
+ */
     @Override
     public void AnimacionYSkin(byte tipo) {
         if (tipo == 0) {
@@ -47,7 +53,7 @@ public class Cangrejo extends Alienigenas {
         });
         animacion.start();
     }
-
+//Se aplica polimorfismo porque los alienigenas tienen diferentes puntos cada uno
     @Override
     public int getPuntos() {
         return 20;
